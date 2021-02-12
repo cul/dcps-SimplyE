@@ -27,6 +27,10 @@ NSMAP = {None: "http://www.w3.org/2005/Atom",
 
 def main():
 
+    x = get_item('ldpd_14230789_000').files
+    from pprint import pprint
+    pprint(x)
+    quit()
     x = util.unpickle_it('output/ia/ia_ccny_feed.pickle')
 
     # from pprint import pprint
@@ -59,22 +63,31 @@ def extract_data(records, feed_stem, collection_title):
 
     for record in records:
         # print(record['id'])
-        record_metadata = get_item(record['id']).metadata
-        if record_metadata:
-            print(record_metadata['identifier'] +
-                  ': ' + record_metadata['title'])
-            # Add CUL-specific metadata for use in generating feed XML.
-            record_metadata['cul_metadata'] = {'bibid': record['bibid'],
-                                               'feed_id': feed_stem,
-                                               'collection_name':
-                                               collection_title,
-                                               'label': record['label']}
-            the_output.append(record_metadata)
+        record_files = get_item(record['id']).files
+        # has_pdf = any(f['format'] == 'Text PDF' for f in record_files)
+        has_pdf = any('.pdf' in f['name'] for f in record_files)
+        if has_pdf:
+            record_metadata = get_item(record['id']).metadata
+            if record_metadata:
+                print(record_metadata['identifier'] +
+                      ': ' + record_metadata['title'])
+                # Add CUL-specific metadata for use in generating feed XML.
+                record_metadata['cul_metadata'] = {'bibid': record['bibid'],
+                                                   'feed_id': feed_stem,
+                                                   'collection_name':
+                                                   collection_title,
+                                                   'label': record['label']}
+                the_output.append(record_metadata)
+            else:
+                print('ERROR: No data for ' +
+                      record['bibid'] + ' : ' + record['id'] + '! Skipping...')
+                the_errors.append(
+                    [feed_stem, record['bibid'], record['id'], 'No data!'])
         else:
-            print('ERROR: No data for ' +
+            print('ERROR: No PDF available for ' +
                   record['bibid'] + ' : ' + record['id'] + '! Skipping...')
             the_errors.append(
-                [feed_stem, record['bibid'], record['id'], 'No data!'])
+                [feed_stem, record['bibid'], record['id'], 'No PDF file!'])
 
     return {'data': the_output, 'errors': the_errors}
 
@@ -110,7 +123,8 @@ def build_feed(pickle_path, collection_abbr, chunk_size=100):
     clio_string = "Go to catalog record in CLIO."
     global now
     # now = datetime.today().isoformat()  # Current timestamp in ISO
-    now = datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%S.%fZ") # Current timestamp in ISO
+    now = datetime.utcnow().strftime(
+        "%Y-%m-%dT%H:%M:%S.%fZ")  # Current timestamp in ISO
     base_url = "https://ebooks.library.columbia.edu/static-feeds/ia/" + collection_abbr + "/"
     base_folder = 'output/ia/' + collection_abbr + '/'
 

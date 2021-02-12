@@ -218,6 +218,15 @@ def get_clio_marc(bibid):
         return response.content
 
 
+def get_status(url):
+    response = requests.get(url)
+    return response.status_code
+
+
+def check_clio_status(bibid):
+    return get_status('https://clio.columbia.edu/catalog/' + str(bibid))
+
+
 def diff(first, second):
     # Return list of x - y (everything in x that is not in y).
     # Reverse order to get inverse diff.

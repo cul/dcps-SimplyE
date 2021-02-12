@@ -1,9 +1,7 @@
 # Script to compose OPDS feed from output of oapen_extract_data.
 
 from lxml import etree
-from lxml.builder import ElementMaker
 import dcps_utils as util
-from pprint import pprint
 from datetime import datetime
 from opds_validate import validate_files
 
@@ -21,7 +19,7 @@ NSMAP = {None: "http://www.w3.org/2005/Atom",
 
 def main():
 
-    x = build_feed('output/oapen/oapen_clio.pickle', 'books', chunk_size=500)
+    x = build_feed('output/oapen/oapen_clio.pickle', 'books', chunk_size=100)
 
     # print(x)
     quit()
@@ -34,7 +32,6 @@ def make_entry(_parent, _dict, _bibid):
 
     # process bitstreams (binary file links)
     e_bitstreams = process_bitstreams(_dict['bitstreams'])
-    # e_metadata = process_metadata(_dict['metadata'])
     e_metadata = _dict['metadata']
 
     if e_bitstreams and 'link_pdf' in e_bitstreams:
@@ -96,7 +93,8 @@ def make_entry(_parent, _dict, _bibid):
 
         # # updated
         e_updated = etree.SubElement(entry, "updated")
-        e_updated.text = convert_date(_dict['lastModified'])
+        # e_updated.text = convert_date(_dict['lastModified'])
+        e_updated.text = now
 
         # updated = metadata_finder(e_metadata, "dc.date.available")
         # if updated:
@@ -185,13 +183,15 @@ def divide_list(lst, n):
         yield lst[i:i + n]
 
 
-def build_feed(pickle_path, collection_abbr, chunk_size=500):
+def build_feed(pickle_path, collection_abbr, chunk_size=100):
     # Saves output to XML file(s). Returns error data (missing elements, etc.)
     # to be sent to report datasheet.
     global clio_string
     clio_string = "Go to catalog record in CLIO."
     global now
-    now = datetime.today().isoformat()  # Current timestamp in ISO
+    # now = datetime.today().isoformat()  # Current timestamp in ISO
+    now = datetime.utcnow().strftime(
+        "%Y-%m-%dT%H:%M:%S.%fZ")  # Current timestamp in ISO
     base_url = "https://ebooks.library.columbia.edu/static-feeds/oapen/" + \
         collection_abbr + "/"
     base_folder = 'output/oapen/' + collection_abbr + '/'

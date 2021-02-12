@@ -6,7 +6,7 @@ import os
 my_path = os.path.dirname(__file__)
 
 jing_path = os.path.join(
-    my_path, '../../resources/jing-20091111/bin/jing.jar')
+    my_path, '../resources/jing-20091111/bin/jing.jar')
 schema_path = os.path.join(
     my_path, 'schemas/opds.rnc')
 

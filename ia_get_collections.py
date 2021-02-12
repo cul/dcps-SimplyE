@@ -14,6 +14,15 @@ def main():
 
     sheet_id = '1yTDyd5GQFEsVBiKOnt5T1ejBdXhxhmXVUn6jQ-dg_5I'
 
+    sheet_tab = 'MWM'
+    feed_stem = 'ia_mwm_feed'
+    collection_title = "Muslim World Manuscripts"
+    print('Extracting ' + sheet_tab + ' ... ')
+    get_collection(sheet_id, sheet_tab, feed_stem,
+                   collection_title, multipart=False)
+
+    quit()
+
     sheet_tab = 'HebrewMSS'
     feed_stem = 'ia_hebrewmss_feed'
     collection_title = "Hebrew Manuscripts"
@@ -21,19 +30,9 @@ def main():
     get_collection(sheet_id, sheet_tab, feed_stem,
                    collection_title, multipart=False)
 
-    quit()
-
-
     sheet_tab = '965carnegiedpf'
     feed_stem = 'ia_ccny_feed'
     collection_title = "Carnegie Corporation of New York"
-    print('Extracting ' + sheet_tab + ' ... ')
-    get_collection(sheet_id, sheet_tab, feed_stem,
-                   collection_title, multipart=False)
-
-    sheet_tab = 'MWM'
-    feed_stem = 'ia_mwm_feed'
-    collection_title = "Muslim World Manuscripts"
     print('Extracting ' + sheet_tab + ' ... ')
     get_collection(sheet_id, sheet_tab, feed_stem,
                    collection_title, multipart=False)

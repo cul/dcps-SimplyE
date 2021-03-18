@@ -25,7 +25,7 @@ def main():
 
     sheet_id = '1kLI8x1whzSNqeKL5xVysopgKYWE9-D9H_PHX2RkW4wQ'
 
-    # sheet_tab = 'Test2'
+    # sheet_tab = 'Test2'  # test
     sheet_tab = 'ingest'
     feed_stem = 'oapen_clio'
     collection_title = "OAPEN Book Collection | Columbia University Libraries"
@@ -52,7 +52,8 @@ def get_collection(sheet_id, sheet_tab,
         the_920s = i[4].split(';')  # get arbitrary number of 920s for this row
         rl = []
         for r in the_920s:
-            if 'oapen.org/record' in r:
+            # if 'oapen.org/record' in r:
+            if 'library.oapen.org/handle/20.500.12657/' in r:
                 rp = parse_920(r)
                 rl.append(
                     {'bibid': i[0], 'id': rp['id'], 'label': rp['label']})
@@ -71,7 +72,7 @@ def get_collection(sheet_id, sheet_tab,
 
     print('Saving ' + str(len(feed_data['data'])
                           ) + ' records to ' + pickle_path)
-    util.pickle_it(feed_data['data'], pickle_path)
+    util.pickle_it(feed_data, pickle_path)
 
     # print(feed_data['data'])
     pprint(feed_data['errors'])
@@ -83,14 +84,13 @@ def get_collection(sheet_id, sheet_tab,
 
 def get_oapen_item(_id):
     base_url = 'https://library.oapen.org/rest/search'
-    query = base_url + '?query=dc.identifier:' + \
+    # query = base_url + '?query=dc.identifier:' + \
+    #     str(_id) + '&expand=metadata,bitstreams,parentCollection'
+    query = base_url + '?query=dc.identifier.uri:' + \
         str(_id) + '&expand=metadata,bitstreams,parentCollection'
-    # print(query)
     r = requests.get(query)
     r.encoding = 'UTF-8'
-    id_data = json.loads(r.text)
-    # pprint(id_data)
-    return id_data
+    return json.loads(r.text)
 
 
 def divide_list(lst, n):
@@ -106,7 +106,9 @@ def parse_920(_str):
     p = re.compile('\$[3z](.*?)(;|\$|$)')
     match_label = p.match(_str)
     results['label'] = match_label.group(1) if match_label else None
-    p = re.compile('.*\$[ua]http.*?oapen\.org/record/(\d+)(;|\$|$)')
+    # p = re.compile('.*\$[ua]http.*?oapen\.org/record/(\d+)(;|\$|$)')
+    p = re.compile(
+        '.*\$[ua]https?\S*?oapen\.org/handle/20\.500\.12657/(\d+)(;|\$|$)')
     match_id = p.match(_str)
     results['id'] = match_id.group(1) if match_id else None
     return results
@@ -127,12 +129,13 @@ def extract_data(records, feed_stem, collection_title):
     the_ids = [r['id'] for r in records]
     print(the_ids)
     dupe_ids = find_duplicates(the_ids)
-    dupe_errors = [[feed_stem, r['bibid'], r['id'], 'Duplicate ID']
+    dupe_errors = [[str(datetime.today()), feed_stem, r['bibid'], r['id'], 'Duplicate ID']
                    for r in records if r['id'] in dupe_ids]
     # pprint(dupe_errors)
     the_errors += dupe_errors
 
     for record in records:
+        print(record['bibid'])
         print(record['id'])
 
         # record_metadata = get_item(record['id']).metadata

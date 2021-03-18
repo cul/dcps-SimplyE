@@ -197,7 +197,7 @@ def build_feed(pickle_path, collection_abbr, chunk_size=100):
     base_folder = 'output/oapen/' + collection_abbr + '/'
 
     # Unpack the data
-    the_records = util.unpickle_it(pickle_path)
+    the_records = util.unpickle_it(pickle_path)['data']
 
     # some collection-level info to use
     feed_stem = the_records[0]['cul_metadata']['feed_id']

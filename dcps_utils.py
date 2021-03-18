@@ -3,6 +3,7 @@ from configparser import ConfigParser
 import os
 import pickle
 import requests
+import copy
 
 
 my_path = os.path.dirname(__file__)
@@ -232,3 +233,22 @@ def diff(first, second):
     # Reverse order to get inverse diff.
     second = set(second)
     return [item for item in first if item not in second]
+
+
+def dedupe_array(data, col):
+    # provide column on which to match dupes (starts with 0)
+    new_data = []
+    for row in data:
+        if row[col] not in [r[col] for r in new_data]:
+            new_data.append(row)
+    return new_data
+
+
+def trim_array(data, indices):
+    # provide column indexes as list to remove (starts with 0)
+    # Leaves original array intact (by deep copying)
+    new_data = copy.deepcopy(data)
+    for row in new_data:
+        for i in sorted(indices, reverse=True):
+            del row[i]
+    return new_data

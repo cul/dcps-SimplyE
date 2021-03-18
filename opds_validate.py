@@ -13,12 +13,43 @@ schema_path = os.path.join(
 
 def main():
 
-    the_path = os.path.join(my_path,  'output/ia/avt')
+    output_base_dir = 'output_test/ia'
+    # output_base_dir = 'output/ia'
 
-    val = validate_files(the_path)
+    x = validate_files(output_base_dir)
 
-    the_errors = [f for f in val if f['errors']]
-    print(the_errors)
+    print(
+        '\n'.join(
+            'ERROR! File ' + r['file'] + ' has errors: ' + r['errors']
+            for r in x
+            if r['errors']
+        )
+    )
+    quit()
+
+    the_collections = ['avt',
+                       'ccny',
+                       'clc',
+                       'durst',
+                       'hebrewmss',
+                       'll',
+                       'med',
+                       'mrp',
+                       'mwm',
+                       'wwi',
+                       ]
+
+    for c in the_collections:
+
+        the_path = os.path.join(my_path, output_base_dir, c)
+        val = validate_files(the_path)
+        # print(val)
+        the_errors = [f for f in val if f['errors']]
+        if the_errors:
+            print(the_errors)
+        else:
+            print('No validation errors in ' + c +
+                  ' (' + str(len(val)) + ' files).')
 
     quit()
 

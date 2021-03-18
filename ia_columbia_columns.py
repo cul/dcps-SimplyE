@@ -45,7 +45,8 @@ for e in feed_data['data']:
 # Save to pickle.
 print('Saving ' + str(len(feed_data_new['data'])
                       ) + ' records to ' + pickle_path)
-util.pickle_it(feed_data_new['data'], pickle_path)
+# util.pickle_it(feed_data_new['data'], pickle_path)
+util.pickle_it(feed_data_new, pickle_path)
 
 # Report any extraction errors
 

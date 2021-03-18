@@ -14,18 +14,16 @@ def main():
 
     sheet_id = '1yTDyd5GQFEsVBiKOnt5T1ejBdXhxhmXVUn6jQ-dg_5I'
 
-    sheet_tab = 'MWM'
-    feed_stem = 'ia_mwm_feed'
-    collection_title = "Muslim World Manuscripts"
+    sheet_tab = 'HebrewMSS'
+    feed_stem = 'ia_hebrewmss_feed'
+    collection_title = "Hebrew Manuscripts"
     print('Extracting ' + sheet_tab + ' ... ')
     get_collection(sheet_id, sheet_tab, feed_stem,
                    collection_title, multipart=False)
 
-    quit()
-
-    sheet_tab = 'HebrewMSS'
-    feed_stem = 'ia_hebrewmss_feed'
-    collection_title = "Hebrew Manuscripts"
+    sheet_tab = 'MWM'
+    feed_stem = 'ia_mwm_feed'
+    collection_title = "Muslim World Manuscripts"
     print('Extracting ' + sheet_tab + ' ... ')
     get_collection(sheet_id, sheet_tab, feed_stem,
                    collection_title, multipart=False)
@@ -37,6 +35,8 @@ def main():
     get_collection(sheet_id, sheet_tab, feed_stem,
                    collection_title, multipart=False)
 
+    quit()
+
     sheet_tab = 'AveryTrade'
     feed_stem = 'ia_avt_feed'
     collection_title = "Avery Library Architectural Trade Catalogs"
@@ -44,6 +44,7 @@ def main():
     get_collection(sheet_id, sheet_tab, feed_stem,
                    collection_title, multipart=False)
 
+    # sheet_tab = 'test'
     sheet_tab = 'Missionary'
     feed_stem = 'ia_mrp_feed'
     collection_title = "Missionary Research Pamphlets"
@@ -86,6 +87,7 @@ def get_collection(sheet_id, sheet_tab,
     # get a list of bibids and ia ids to process
     the_inputs = the_in_sheet.getData()
     the_inputs.pop(0)  # remove head row
+    print(str(len(the_inputs)) + ' records in ' + collection_title + '...')
     the_records = []
     for i in the_inputs:
 
@@ -109,7 +111,8 @@ def get_collection(sheet_id, sheet_tab,
 
     print('Saving ' + str(len(feed_data['data'])
                           ) + ' records to ' + pickle_path)
-    util.pickle_it(feed_data['data'], pickle_path)
+    # util.pickle_it(feed_data['data'], pickle_path)
+    util.pickle_it(feed_data, pickle_path)
 
     # pprint(feed_data['data'])
     # pprint(feed_data['errors'])

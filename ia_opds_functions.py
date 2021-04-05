@@ -5,6 +5,8 @@
 # internet archive python library docs:
 # https://archive.org/services/docs/api/internetarchive/
 
+# TODO: Add docstrings to fns
+
 from internetarchive import get_item
 from lxml import etree, html
 # from lxml.builder import ElementMaker
@@ -308,12 +310,10 @@ def make_entry(_parent, _dict, _bibid):
     # Content block
     e_content = etree.SubElement(entry, "content", type="text/html")
     if 'description' in _dict:
-        print(_dict['description'])
         if type(_dict['description']) == str:
             e_content.append(fragment_cleaner(
                 text_clean(_dict['description'])))
         else:
-            print(type(_dict['description']))
             desc = text_clean(('. ').join(_dict['description']))
             e_content.append(fragment_cleaner(desc))
     else:
@@ -374,6 +374,14 @@ def add_subelement_static(_parent, _element_name, _text="", nspace='', **kwargs)
 
 
 def fragment_cleaner(_str):
+    """Remove extraneous markup from description text, leaving only <p> container.
+
+    Args:
+        _str (String): String containing markup
+
+    Returns:
+        [String]: Cleaned up text.
+    """
     x = html.fragment_fromstring(_str, create_parent='p')
     etree.strip_tags(x, '*')
     return x
@@ -387,7 +395,15 @@ def convert_date(_datetime):
 
 
 def divide_list(lst, n):
-    # generate n-sized chunks from list.
+    """Generate n-sized chunks from list
+
+    Args:
+        lst (list): A list
+        n (int): chunk size
+
+    Yields:
+        generator: set of n-size lists
+    """
     for i in range(0, len(lst), n):
         yield lst[i:i + n]
 

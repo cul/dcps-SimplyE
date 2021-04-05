@@ -17,6 +17,10 @@ from pprint import pprint
 from datetime import datetime
 import re
 
+TEST = True
+
+output_dir = 'output_test/oapen' if TEST else 'output/oapen'
+
 
 def main():
 
@@ -25,8 +29,8 @@ def main():
 
     sheet_id = '1kLI8x1whzSNqeKL5xVysopgKYWE9-D9H_PHX2RkW4wQ'
 
-    # sheet_tab = 'Test2'  # test
-    sheet_tab = 'ingest'
+    sheet_tab = 'Test2'  # test
+    # sheet_tab = 'ingest'
     feed_stem = 'oapen_clio'
     collection_title = "OAPEN Book Collection | Columbia University Libraries"
     print('Extracting ' + sheet_tab + ' ... ')
@@ -42,7 +46,7 @@ def get_collection(sheet_id, sheet_tab,
     the_in_sheet = dataSheet(sheet_id, sheet_tab + '!A:Z')
     the_out_sheet = dataSheet(sheet_id, 'extract-errors!A:Z')
 
-    pickle_path = 'output/oapen/' + feed_stem + '.pickle'
+    pickle_path = output_dir + '/' + feed_stem + '.pickle'
 
     # get a list of bibids and ia ids to process
     the_inputs = the_in_sheet.getData()

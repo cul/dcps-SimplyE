@@ -5,6 +5,8 @@ import dcps_utils as util
 from datetime import datetime
 from opds_validate import validate_files
 
+# Set to True to output XML to output_test folder.
+DEBUG = True
 
 contentProvider = "OAPEN"
 
@@ -14,7 +16,8 @@ NSMAP = {None: "http://www.w3.org/2005/Atom",
          'dcterms': "http://purl.org/dc/terms/",
          'simplified': "http://librarysimplified.org/terms/",
          'opds': "http://opds-spec.org/2010/catalog",
-         'schema': "http://schema.org/"}
+         'schema': "http://schema.org/",
+         'rdf': "http://www.w3.org/1999/02/22-rdf-syntax-ns#"}
 
 
 def main():
@@ -29,12 +32,13 @@ def make_entry(_parent, _dict, _bibid):
     ns_bibframe = "{%s}" % NSMAP["bibframe"]
     ns_dcterms = "{%s}" % NSMAP["dcterms"]
     ns_simplified = "{%s}" % NSMAP["simplified"]
+    ns_rdf = "{%s}" % NSMAP["rdf"]
 
     # process bitstreams (binary file links)
     e_bitstreams = process_bitstreams(_dict['bitstreams'])
     e_metadata = _dict['metadata']
 
-    if e_bitstreams and 'link_pdf' in e_bitstreams:
+    if e_bitstreams and ('link_pdf' or 'link_epub') in e_bitstreams:
         # if there is no bitstream data, we can't use the entry.
         # TODO: test if either PDF or EPUB.
 
@@ -65,8 +69,16 @@ def make_entry(_parent, _dict, _bibid):
         e_title.text = _dict['name']
         e_dist = etree.SubElement(
             entry, ns_bibframe + "distribution",  ProviderName=contentProvider)
-        e_link_pdf = etree.SubElement(
-            entry, "link", href=e_bitstreams['link_pdf'], type="application/pdf", rel="http://opds-spec.org/acquisition/open-access")
+        if 'link_pdf' in e_bitstreams:
+            e_link_pdf = etree.SubElement(
+                entry, "link", href=e_bitstreams['link_pdf'],
+                type="application/pdf",
+                rel="http://opds-spec.org/acquisition/open-access")
+        if 'link_epub' in e_bitstreams:
+            e_link_epub = etree.SubElement(
+                entry, "link", href=e_bitstreams['link_epub'],
+                type="application/epub+zip",
+                rel="http://opds-spec.org/acquisition/open-access")
         if 'link_cover' in e_bitstreams:
             print(e_bitstreams['link_cover'])
             e_link_cover = etree.SubElement(
@@ -114,6 +126,11 @@ def make_entry(_parent, _dict, _bibid):
         # if summary:
         #     e_summary = etree.SubElement(entry, "summary", type="text")
         #     e_summary.text = summary[0]
+
+        # CLIO reference (Not used by SimplyE but to be more easily parsed for reporting etc.)
+        e_catlink = etree.SubElement(entry, ns_dcterms + 'isReferencedBy')
+        e_catlink.attrib[ns_rdf + 'resource'] = 'https://clio.columbia.edu/catalog/' + \
+            str(_bibid)
 
         # Content
         content = metadata_finder(e_metadata, 'dc.description.abstract')
@@ -163,6 +180,8 @@ def process_bitstreams(_list):
         for b in _list:
             if b['mimeType'] == "application/pdf":
                 result['link_pdf'] = url + b["retrieveLink"]
+            elif b['mimeType'] == "application/epub+zip":
+                result['link_epub'] = url + b["retrieveLink"]
             elif b['mimeType'] == "image/jpeg":
                 result['link_cover'] = url + b["retrieveLink"]
             elif b['mimeType'] == "text/plain":
@@ -194,7 +213,10 @@ def build_feed(pickle_path, collection_abbr, chunk_size=100):
         "%Y-%m-%dT%H:%M:%S.%fZ")  # Current timestamp in ISO
     base_url = "https://ebooks.library.columbia.edu/static-feeds/oapen/" + \
         collection_abbr + "/"
-    base_folder = 'output/oapen/' + collection_abbr + '/'
+    if DEBUG is True:
+        base_folder = 'output_test/oapen/' + collection_abbr + '/'
+    else:
+        base_folder = 'output/oapen/' + collection_abbr + '/'
 
     # Unpack the data
     the_records = util.unpickle_it(pickle_path)['data']

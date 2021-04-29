@@ -13,8 +13,8 @@ schema_path = os.path.join(
 
 def main():
 
-    output_base_dir = 'output_test/ia'
-    # output_base_dir = 'output/ia'
+    # output_base_dir = 'output_test/ia'
+    output_base_dir = 'output/ia'
 
     x = validate_files(output_base_dir)
 

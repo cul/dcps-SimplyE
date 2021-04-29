@@ -1,4 +1,7 @@
-# Script to gather ids and bibids for AI assets linked from CLIO, harvest metadata from IA, and save in a pickled data file. This data then gets used to build an OPDS feed in the next step in workflow.
+# Script to gather ids and bibids for AI assets linked from CLIO,
+# harvest metadata from IA, and save in a pickled data file.
+# This data then gets used to build an OPDS feed in the next
+# step in workflow.
 
 # internet archive python library docs:
 # https://archive.org/services/docs/api/internetarchive/
@@ -13,6 +16,15 @@ def main():
     # Run this to extract all of the collections below.
 
     sheet_id = '1yTDyd5GQFEsVBiKOnt5T1ejBdXhxhmXVUn6jQ-dg_5I'
+
+    sheet_tab = '965tibetan'
+    feed_stem = 'ia_tibetan_feed'
+    collection_title = "Tibetan Studies Special Collections"
+    print('Extracting ' + sheet_tab + ' ... ')
+    get_collection(sheet_id, sheet_tab, feed_stem,
+                   collection_title, multipart=False)
+
+    quit()
 
     sheet_tab = 'HebrewMSS'
     feed_stem = 'ia_hebrewmss_feed'

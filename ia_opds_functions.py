@@ -185,7 +185,8 @@ def build_feed(pickle_path, collection_abbr, chunk_size=100, output_dir='output/
         feed_id = etree.SubElement(root, "id")
         feed_id.text = base_url + feed_stem
         feed_title = etree.SubElement(root, "title")
-        feed_title.text = collection_title + " | Columbia University Libraries"
+        # feed_title.text = collection_title + " | Columbia University Libraries"
+        feed_title.text = collection_title
         feed_updated = etree.SubElement(root, "updated")
         feed_updated.text = now
 

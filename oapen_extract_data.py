@@ -32,7 +32,7 @@ def main():
     sheet_tab = 'Test2'  # test
     # sheet_tab = 'ingest'
     feed_stem = 'oapen_clio'
-    collection_title = "OAPEN Book Collection | Columbia University Libraries"
+    collection_title = "OAPEN Book Collection"
     print('Extracting ' + sheet_tab + ' ... ')
     get_collection(sheet_id, sheet_tab, feed_stem,
                    collection_title, multipart=False)

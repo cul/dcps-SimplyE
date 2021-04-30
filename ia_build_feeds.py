@@ -9,7 +9,7 @@ from ia_linglong import build_linglong_feed
 import opds_validate
 
 
-TEST = False
+TEST = True
 
 output_dir = 'output_test/ia' if TEST else 'output/ia'
 
@@ -38,7 +38,7 @@ for col in the_collections:
     x = ia.build_feed(col[0], col[1], output_dir=output_dir)
     the_out_sheet.appendData(x)
 
-# build_linglong_feed(output_dir=output_dir)
+build_linglong_feed(output_dir=output_dir)
 
 
 # validate the output

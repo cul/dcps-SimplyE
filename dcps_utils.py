@@ -4,6 +4,8 @@ import os
 import pickle
 import requests
 import copy
+from io import StringIO
+import csv
 
 
 my_path = os.path.dirname(__file__)
@@ -56,47 +58,9 @@ def oai_harvest(
         return result[0].decode("utf-8")
 
 
-def saxon_process(saxonPath, inFile, transformFile, outFile, theParams=" "):
+def saxon_process(inFile, transformFile, outFile, theParams=" ", saxonPath=config['FILES']['saxonPath']):
     # Process an XSLT transformation. Use None for outFile to send to stdout.
-    if outFile:
-        outStr = " > " + outFile
-    else:
-        outStr = " "
-    cmd = (
-        "java -jar "
-        + saxonPath
-        + " "
-        + inFile
-        + " "
-        + transformFile
-        + " "
-        + theParams
-        + " "
-        + "--suppressXsltNamespaceCheck:on"
-        + outStr
-    )
-    # print(cmd)
-    p = subprocess.Popen(
-        [cmd],
-        stdin=subprocess.PIPE,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
-        shell=True,
-    )
-    result = p.communicate()
-    if result[1]:  # error
-        return "SAXON MESSAGE: " + str(result[1].decode("utf-8"))
-    else:
-        return result[0].decode("utf-8")
-
-
-def saxon_process2(saxonPath, inFile, transformFile, outFile, theParams=" "):
-    # TODO: Test error parsing.
-    # Process an XSLT transformation. Use None for outFile to send to stdout.
-    if outFile:
-        outStr = " > " + outFile
-    else:
-        outStr = " "
+    outStr = " > " + outFile if outFile else " "
     cmd = (
         "java -jar "
         + saxonPath
@@ -139,7 +103,7 @@ def saxon_process2(saxonPath, inFile, transformFile, outFile, theParams=" "):
         return result[0].decode("utf-8")
 
 
-def jing_process(jingPath, filePath, schemaPath, compact=False):
+def jing_process(filePath, schemaPath, compact=False, jingPath=config['FILES']['jingPath']):
     # Process an xml file against a schema (rng or schematron) using Jing.
     # Tested with jing-20091111.
     # https://code.google.com/archive/p/jing-trang/downloads
@@ -162,7 +126,16 @@ def jing_process(jingPath, filePath, schemaPath, compact=False):
         return result[0].decode("utf-8")
 
 
-def rsync_process(keyPath, fromPath, toPath, options):
+def xml_to_array(in_file, xslt_file, delim='|', params=" "):
+    # Process XML via XSLT to tabular format,
+    # and then return as a list of lists.
+    # Requires XSLT that outputs delimited plain text.
+    tabular = saxon_process(in_file, xslt_file, None, theParams=params)
+    f = StringIO(tabular)
+    return list(csv.reader(f, delimiter=delim))
+
+
+def rsync_process(fromPath, toPath, options, keyPath=config["FILES"]["keyPath"]):
     if keyPath:
         cmd = (
             '/usr/bin/rsync -zarvhe "ssh -i '
@@ -225,6 +198,8 @@ def get_status(url):
 
 
 def check_clio_status(bibid):
+    # If using in bulk, add sleep of .5 sec or more to
+    # avoid "too many requests" error
     return get_status('https://clio.columbia.edu/catalog/' + str(bibid))
 
 
@@ -252,3 +227,14 @@ def trim_array(data, indices):
         for i in sorted(indices, reverse=True):
             del row[i]
     return new_data
+
+
+def sort_array(data, match_key=0, ignore_heads=False):
+    # Sort an array based on given column (1st one by default)
+    data_sorted = copy.deepcopy(data)
+    if ignore_heads:
+        heads = data_sorted.pop(0)
+    data_sorted.sort(key=lambda x: x[match_key])
+    if ignore_heads:
+        data_sorted.insert(0, heads)
+    return data_sorted

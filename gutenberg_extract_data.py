@@ -87,7 +87,6 @@ def main():
         # feed_file_name = feed_stem + '.xml'
 
         util.saxon_process(
-            '/Users/dwh2128/Documents/git/resources/saxon-9.8.0.12-he.jar',
             list_file_path, xslt_path, output_folder + feed_name,
             theParams='feedURL=https://ebooks.library.columbia.edu/static-feeds/oa_clio/' + feed_name + ' feedNext=' + feed_next_path)
 

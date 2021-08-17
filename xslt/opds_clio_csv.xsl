@@ -9,7 +9,7 @@
                 xpath-default-namespace="http://www.w3.org/2005/Atom">
    <xsl:output method="text" indent="no" encoding="UTF-8"/>
    
-   <xsl:param name="file_path">/Users/dwh2128/Documents/git/dcps-SimplyE/output_test/</xsl:param>
+   <xsl:param name="file_path">/Users/dwh2128/Documents/SimplyE/dcps-SimplyE/output/</xsl:param>
 <!--   <xsl:param name="file_path">/Users/dwh2128/Documents/git/dcps-SimplyE/output_test/oapen/books/</xsl:param>-->
    
    <xsl:param name="base_url">https://academic.lyrasistechnology.org/columbia/book/https%3A%2F%2Fcolumbia.lyrasistechnology.org%2F190150%2Fworks%2FURI%2F</xsl:param>
@@ -41,6 +41,9 @@
       <xsl:value-of select="$filename"/>
       <xsl:value-of select="$delim1"/>
       -->
+      <xsl:if test="not(normalize-space($bibid))">
+         <xsl:message>*** WARNING: NO BIBID FOUND FOR <xsl:value-of select="normalize-space(id)"/></xsl:message>
+      </xsl:if>
       <xsl:value-of select="$bibid"/>
       <xsl:value-of select="$delim1"/>
       <xsl:choose>

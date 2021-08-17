@@ -26,14 +26,14 @@
     <!--    <xsl:param name="out_path"
         >/Users/dwh2128/Documents/SimplyE/books/JHU/ONIX/ONIX3_converted/TO-IMPORT/v4/out4/</xsl:param> -->
     <xsl:param name="out_path"
-        >/Users/dwh2128/Documents/SimplyE/books/Casalini/Output/v1/</xsl:param>
-
+        >/Users/dwh2128/Documents/SimplyE/books/Casalini/ONIX/Output/v5/</xsl:param>
+    
     <xsl:param name="isbn_type"/>
     <!--    <xsl:param name="isbn_type">ISBN-13</xsl:param>-->
     <!-- <xsl:param name="isbn_type">ISBN-10</xsl:param>-->
 
     <xsl:param name="lookup_path"
-        >/Users/dwh2128/Documents/SimplyE/books/Casalini/torrossa_isbn_lookup.xml</xsl:param>
+        >/Users/dwh2128/Documents/SimplyE/books/Casalini/ONIX/torrossa_isbn_lookup.xml</xsl:param>
 
     <!--   <xsl:param name="lookup_path"
         >/Users/dwh2128/Documents/SimplyE/books/JHU/ONIX/jhu_isbn_lookup2.xml</xsl:param>-->
@@ -83,6 +83,19 @@
     </xsl:template>
 
 
+    <xsl:template name="fix_isbn">
+        <!-- This remedies a problem with Torrossa files where isbns are truncated to 9 characters. Adds "X" at end of 9-char ISBN. -->
+        <xsl:param name="isbn_str"/>
+        <xsl:choose>
+            <xsl:when test="string-length($isbn_str) = 9">
+                <xsl:value-of select="$isbn_str"/><xsl:text>X</xsl:text>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="$isbn_str"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+
     <xsl:template match="product">
         <xsl:variable name="isbn">
             <xsl:choose>
@@ -95,7 +108,9 @@
                 </xsl:when>
                 <xsl:otherwise>
                     <!-- No global ISBN format set, just take the first (and hopefully only) one! -->
-                    <xsl:value-of select="productidentifier[1]/b244"/>
+                    <xsl:call-template name="fix_isbn">
+                        <xsl:with-param name="isbn_str" select="productidentifier[1]/b244"/>
+                    </xsl:call-template>
                 </xsl:otherwise>
             </xsl:choose>
 
@@ -238,6 +253,48 @@
         </xsl:choose>
 
 
+    </xsl:template>
+
+    <xsl:template match="productidentifier"> 
+        <productidentifier>
+            <xsl:variable name="isbn_local">
+                <xsl:call-template name="fix_isbn">
+                    <xsl:with-param name="isbn_str" select="b244"/>
+                </xsl:call-template>
+            </xsl:variable>
+        <xsl:choose>
+            <xsl:when test="string-length($isbn_local) = 10">
+                <b221>02</b221>
+                <b244><xsl:value-of select="$isbn_local"/></b244>
+            </xsl:when>
+            <xsl:when test="string-length($isbn_local) = 13">
+                <b221>15</b221>
+                <b244><xsl:value-of select="$isbn_local"/></b244>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:comment>Warning: Unknown ISBN format!</xsl:comment>
+                <b221>01</b221>
+                <b244><xsl:value-of select="$isbn_local"/></b244>
+            </xsl:otherwise>
+            
+        </xsl:choose>
+        </productidentifier>
+
+    </xsl:template>
+    
+    <xsl:template match="contributor[not(b036)]/b037">
+        <b036>
+            <xsl:analyze-string select="." regex="^(.*?), (.*)$">
+                <xsl:matching-substring>
+                    <xsl:value-of select="regex-group(2)"/>
+                    <xsl:text> </xsl:text>
+                    <xsl:value-of select="regex-group(1)"/>
+                </xsl:matching-substring>
+                <xsl:non-matching-substring/>
+
+            </xsl:analyze-string>
+        </b036>
+        <b037><xsl:value-of select="."/></b037>
     </xsl:template>
 
 </xsl:stylesheet>

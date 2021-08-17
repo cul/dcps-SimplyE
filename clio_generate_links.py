@@ -6,6 +6,7 @@
 # 2. ONIX XML files in a given directory tree.
 
 
+from posixpath import join
 import dcps_utils as util
 import os
 from sheetFeeder import dataSheet
@@ -26,10 +27,15 @@ def main():
         '1r8oaOQT955HvAii-5sF3IDwXR1_SGXx_KZRLN40JK9s', 'Test!A:Z')  # Test
 
     OPDS_DIR = os.path.join(
-        MY_PATH, 'output_test/')
-    ONIX_DIR = '/Users/dwh2128/Documents/SimplyE/books/JHU/ONIX/ONIX3_converted/TO-IMPORT/v4/out3'
-    OPDS_XSLT = 'xslt/opds_clio_csv.xsl'
-    ONIX_XSLT = 'xslt/onix_clio_csv.xsl'
+        MY_PATH, 'output/')
+    # ONIX_DIR = '/Users/dwh2128/Documents/SimplyE/books/JHU/ONIX/ONIX3_converted/TO-IMPORT/v4/out3'
+    ONIX_DIR = 'onix'
+    ONIX_COLLS = [
+        {'dir': 'JHU', 'name': 'Johns Hopkins University Press'},
+        {'dir': 'Casalini', 'name': 'Casalini'}
+    ]
+    OPDS_XSLT = os.path.join(MY_PATH, 'xslt/opds_clio_csv.xsl')
+    ONIX_XSLT = os.path.join(MY_PATH, 'xslt/onix_clio_csv.xsl')
 
     sheet_output = []  # this will contain the combined output
 
@@ -40,13 +46,19 @@ def main():
     sheet_output += opds_data
 
     print('*** Getting ONIX data ... ***')
-    params = ("input_dir=" + ONIX_DIR +
-              " publisher='Johns Hopkins University Press'")
-    onix_data = util.xml_to_array(ONIX_XSLT, ONIX_XSLT, params=params)
-    onix_data.pop(0)  # remove heads
-    sheet_output += onix_data
 
-    print(str(len(onix_data)) + " records found in ONIX.")
+    for coll in ONIX_COLLS:
+        params = ("input_dir='" +
+                  str(os.path.join(MY_PATH, ONIX_DIR, coll['dir'])) +
+                  "' publisher='" +
+                  coll['name'] +
+                  "'")
+        # print(params)
+        onix_data = util.xml_to_array(ONIX_XSLT, ONIX_XSLT, params=params)
+        onix_data.pop(0)  # remove heads
+        sheet_output += onix_data
+
+        print(str(len(onix_data)) + " records found in " + coll['name'])
 
     # Post to sheet
     OUT_SHEET.clear()

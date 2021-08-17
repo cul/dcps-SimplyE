@@ -13,12 +13,12 @@
 
  
   
-    <xsl:param name="file_path"
+<!--    <xsl:param name="file_path"
         >/Users/dwh2128/Documents/SimplyE/books/JHU/ONIX/ONIX3_converted/TO-IMPORT/v4/out3/</xsl:param>
-        
-<!--
-    <xsl:param name="file_path">/Users/dwh2128/Documents/SimplyE/books/Casalini/Output/v1/</xsl:param>
- -->
+        -->
+
+    <xsl:param name="file_path">/Users/dwh2128/Documents/SimplyE/books/Casalini/ONIX/Output/v5/</xsl:param>
+ 
  
     <xsl:variable name="lf"><xsl:text>&#10;</xsl:text></xsl:variable>
     <xsl:variable name="delim1">|</xsl:variable>

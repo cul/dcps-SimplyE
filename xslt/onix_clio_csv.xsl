@@ -13,7 +13,8 @@
     <xsl:param name="base_url">https://academic.lyrasistechnology.org/columbia/book/https%3A%2F%2Fcolumbia.lyrasistechnology.org%2F190150%2Fworks%2FISBN%2F</xsl:param>
     
      
-    <xsl:param name="input_dir">/Users/dwh2128/Documents/SimplyE/books/JHU/ONIX/ONIX3_converted/TO-IMPORT/v4/out3/</xsl:param> 
+<!--    <xsl:param name="input_dir">/Users/dwh2128/Documents/SimplyE/books/JHU/ONIX/ONIX3_converted/TO-IMPORT/v4/out3/</xsl:param> -->
+    <xsl:param name="input_dir">/Users/dwh2128/Documents/SimplyE/dcps-SimplyE/onix/Casalini</xsl:param> 
     <xsl:param name="publisher">[Provide Publisher Here]</xsl:param> 
     
   <xsl:variable name="heads">BIBID|VENDOR|PUBLISHER|TITLE|ISBN|HREF|PDF|EPUB</xsl:variable>
@@ -27,6 +28,7 @@
     </xsl:variable>
         
     <xsl:template match="/">
+
         
         <xsl:value-of select="$heads"/>
         <xsl:value-of select="$lf"></xsl:value-of>
@@ -37,11 +39,18 @@
             <xsl:sort select="a001"/>
             
             <xsl:variable name="bibid">
-                <xsl:analyze-string select="current-group()[1]/collateraldetail/textcontent/d104" regex="/catalog/(\d+)">
-                    <xsl:matching-substring>
-                        <xsl:value-of select="regex-group(1)"/>
-                    </xsl:matching-substring>
-                </xsl:analyze-string>
+            <xsl:choose>
+                <xsl:when test="current-group()[1]/collateraldetail/textcontent/d104[contains(., '/catalog/')]">
+                        <xsl:analyze-string select="current-group()[1]/collateraldetail/textcontent/d104[contains(., '/catalog/')]" regex="/catalog/(\d+)">
+                            <xsl:matching-substring>
+                                <xsl:value-of select="regex-group(1)"/>
+                            </xsl:matching-substring>
+                        </xsl:analyze-string>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:message>*** WARNING: NO BIBID FOUND IN <xsl:value-of select="current-group()[1]/a001"/></xsl:message>
+                </xsl:otherwise>
+            </xsl:choose>
             </xsl:variable>
             
             <xsl:if test="normalize-space($bibid)">
@@ -60,16 +69,32 @@
                 <xsl:value-of select="$delim"/>
                 
                 <!--  TITLE      -->
-                <xsl:value-of select="current-group()[1]/descriptivedetail/titledetail[1]/titleelement[1]/b203"/>
+
+                <xsl:apply-templates select="current-group()[1]/descriptivedetail/titledetail[1]">
+    
+                </xsl:apply-templates>
                 <xsl:value-of select="$delim"/>
                 
                 <!--  ISBN      -->
-                <xsl:value-of select="current-group()[1]/a001"/>
+                
+                <xsl:variable name="isbn">
+                <xsl:choose>
+                    <xsl:when test="current-group()[1]/productidentifier[b221 = '15']">
+                        <xsl:value-of select="current-group()[1]/productidentifier[b221 = '15']/b244"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="current-group()[1]/productidentifier[1]/b244"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+ 
+                </xsl:variable>
+                
+                <xsl:value-of select="$isbn"/>
                 <xsl:value-of select="$delim"/>
                 
                 
                 <!--  HREF      -->
-                <xsl:value-of select="concat($base_url, current-group()[1]/a001)"/>
+                <xsl:value-of select="concat($base_url, $isbn)"/>
                 <xsl:value-of select="$delim"/>
                 
                 
@@ -91,5 +116,20 @@
 
     </xsl:template>
  
-    
+    <xsl:template match="titledetail">
+        <xsl:choose>
+        <!-- Concatenate title info if there is an article           -->
+            <xsl:when test="titleelement/b203">
+                <xsl:value-of select="normalize-space(translate(titleelement[1]/b203, '&quot;', ''))"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="normalize-space(translate(titleelement[1]/b030, '&quot;', ''))"/>
+                <xsl:text> </xsl:text>
+                <xsl:value-of select="normalize-space(translate(titleelement[1]/b031, '&quot;', ''))"/>
+            </xsl:otherwise>
+        </xsl:choose>
+        
+        
+    </xsl:template>
+
 </xsl:stylesheet>

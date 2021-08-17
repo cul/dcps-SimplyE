@@ -9,10 +9,6 @@ from configparser import ConfigParser
 import dcps_utils as util
 
 
-# https://spdi.public.springernature.app/bookmeta/v1/json?s=1&p=100&api_key=ab0f8e638ac90ce6f21db3a4f48856d0/columbia-uni-api&entitlement=columbia-uni-api
-
-# https://spdi.public.springernature.app/bookmeta/v1/json?q=onlinedatefrom:2021-02-01%20onlinedateto:2021-07-31&s=1&p=10&api_key=ab0f8e638ac90ce6f21db3a4f48856d0/columbia-uni-api&entitlement=columbia-uni-api
-
 MY_NAME = __file__
 MY_PATH = os.path.dirname(__file__)
 SCRIPT_NAME = os.path.basename(MY_NAME)

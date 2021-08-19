@@ -63,45 +63,6 @@ def main():
                              query=date_param)
     quit()
 
-    for i in x:
-        isbn = i['isbn']
-        identifier = i['identifier']
-        print(isbn)
-        print(identifier)
-        bibid = '9999999'  # TODO: replace with lookup
-        book_data = get_springer_by_isbn(isbn)
-        output.append(book_data)
-        # pprint(book_data)
-        # entry = make_springer_entry(book_data, bibid)
-        # feed_dict['publications'].append(entry)
-
-    print("Saving to " + str(pickle_path) + "...")
-
-    util.pickle_it(output, pickle_path)
-
-    x = util.unpickle_it(pickle_path)
-
-    feed_dict = feed_shell(title, url)
-
-    for i in x:
-        # isbn = i['isbn']
-        # print(isbn)
-        bibid = '9999999'  # TODO: replace with lookup
-        # book_data = get_springer_by_isbn(isbn)
-        # output.append(book_data)
-        # pprint(book_data)
-        entry = make_springer_entry(i, bibid)
-        feed_dict['publications'].append(entry)
-
-    print("Saving to " + str(out_path) + "...")
-    with open(out_path, "w") as f:
-        json.dump(feed_dict, f)
-
-    # pprint(x[0])
-    print(len(x))
-
-    quit()
-
 
 def springer_build_opds(data_store_path, feed_title, url, output_path):
 

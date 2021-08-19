@@ -42,55 +42,27 @@ NOW = datetime.utcnow().strftime(
 
 def main():
 
-    feed_stem = "springer_test_feed5"
+    feed_stem = "springer_test_feed"
     collection_title = "springer"
     out_file = feed_stem + ".json"
     title = "Springer Test Feed"
     url = "https://ebooks-test.library.columbia.edu/static-feeds/springer/" + \
         out_file
     output_dir = "output_test/springer"
-    pickle_path = os.path.join(output_dir, feed_stem + '.pickle')
-
-    data_store = os.path.join(output_dir, feed_stem + '_datastore.json')
-
-    out_path = os.path.join(MY_PATH, output_dir, out_file)
-
-    output = []
-
     subject_path = os.path.join(
         MY_PATH, 'output_test/springer/springer_subjects.pickle')
 
-    subject_data = util.unpickle_it(subject_path)
+    date_param = 'onlinedatefrom:2021-01-01%20onlinedateto:2021-08-31'
 
-    x = get_springer_batch(
-        q='onlinedatefrom:2001-01-01%20onlinedateto:2021-07-31')
+    springer_build_opds('output_test/springer/springer_test_feed_datastore.json',
+                        'Springer Test Feed', url, 'output_test/springer/springer_test_feed5_OPDS.json')
 
-    print("Retrieved " + str(len(x)) + " books.")
-    for r in x:
-        r['cul_metadata'] = {'bibid': 'XXXXXX',
-                             'feed_id': feed_stem,
-                             'collection_name':
-                             collection_title,
-                             'retrieved': NOW}
-        doi = r['doi']
-        try:
-            r['subjects'] = subject_data[doi]
-        except KeyError:
-            print("Warning: no subjects found for " + str(r['identifier']))
-
-    if os.path.exists(data_store):
-        x = springer_merge_records(x, data_store)
-        print("Saving " + str(len(x)) + " records to " + str(data_store) + "...")
-        with open(data_store, "w") as f:
-            json.dump(x, f)
-        return "Update of " + str(data_store) + " complete."
-    else:
-        print("Saving to " + str(data_store) + "...")
-        with open(data_store, "w") as f:
-            json.dump(x, f)
-
-    # pprint(x)
     quit()
+    springer_build_datastore(feed_stem, collection_title, subject_path,
+                             output_dir,
+                             query=date_param)
+    quit()
+
     for i in x:
         isbn = i['isbn']
         identifier = i['identifier']
@@ -129,6 +101,80 @@ def main():
     print(len(x))
 
     quit()
+
+
+def springer_build_opds(data_store_path, feed_title, url, output_path):
+
+    with open(data_store_path, "rb") as f:
+        json_data = json.load(f)
+
+    feed_dict = feed_shell(feed_title, url)
+
+    for i in json_data:
+        isbn = i['isbn']
+        identifier = i['identifier']
+        print(isbn)
+        print(identifier)
+        entry = make_springer_entry(i)
+        feed_dict['publications'].append(entry)
+
+    print("Saving to " + str(output_path) + "...")
+    with open(output_path, "w") as f:
+        json.dump(feed_dict, f)
+
+
+def springer_build_datastore(feed_stem, collection_title,
+                             subject_path,
+                             output_dir,
+                             query='onlinedatefrom:2001-01-01%20onlinedateto:2021-07-31'):
+
+    # feed_stem = "springer_test_feed5"
+    # collection_title = "springer"
+    out_file = feed_stem + ".json"
+    # feed_title = "Springer Test Feed"
+    url = "https://ebooks-test.library.columbia.edu/static-feeds/springer/" + \
+        out_file
+    # output_dir = "output_test/springer"
+    # pickle_path = os.path.join(output_dir, feed_stem + '.pickle')
+
+    data_store = os.path.join(output_dir, feed_stem + '_datastore.json')
+
+    # out_path = os.path.join(MY_PATH, output_dir, out_file)
+
+    # output = []
+
+    # subject_path = os.path.join(
+    #     MY_PATH, 'output_test/springer/springer_subjects.pickle')
+
+    subject_data = util.unpickle_it(subject_path)
+
+    x = get_springer_batch(
+        q=query)
+
+    print("Retrieved " + str(len(x)) + " books.")
+    for r in x:
+        # TODO: look up bibids
+        r['cul_metadata'] = {'bibid': 'XXXXXX',
+                             'feed_id': feed_stem,
+                             'collection_name':
+                             collection_title,
+                             'retrieved': NOW}
+        doi = r['doi']
+        try:
+            r['subjects'] = subject_data[doi]
+        except KeyError:
+            print("Warning: no subjects found for " + str(r['identifier']))
+
+    if os.path.exists(data_store):
+        x = springer_merge_records(x, data_store)
+        print("Saving " + str(len(x)) + " records to " + str(data_store) + "...")
+        with open(data_store, "w") as f:
+            json.dump(x, f)
+        return "Update of " + str(data_store) + " complete."
+    else:
+        print("Saving to " + str(data_store) + "...")
+        with open(data_store, "w") as f:
+            json.dump(x, f)
 
 
 def springer_merge_records(data, filepath):
@@ -212,28 +258,22 @@ def springer_get_count(url):
         return int(x['result'][0]['total'])
 
 
-def make_springer_entry(data, bibid, mode='SAML'):
+def make_springer_entry(record, mode='SAML'):
+    bibid = record['cul_metadata']['bibid']
     clio_link = "<p><a href='https://clio.columbia.edu/catalog/{}'>Go to catalog record in CLIO.</a></p>".format(
         str(bibid))
-    record = data['records'][0]
-    facets = data['facets']
+    # record = data['records'][0]
+    # facets = data['facets']
     isbn = record['isbn']
     pdf_url = None
     epub_url = None
     for u in record['url']:
         if u['format'] == 'pdf':
             pdf_url = u['value']
-        # if u['format'] == 'epub':
-        #     epub_url = u['value']
     if 'ePubUrl' in record:
         epub_url = record['ePubUrl']
 
-    subjects = []
-    # print(facets)
-    for f in facets:
-        if f['name'] == 'subject':
-            # print("YES")
-            subjects += [s['value'] for s in f['values']]
+    subjects = record['subjects']
 
     links = []
     if mode == 'SAML':
@@ -266,11 +306,9 @@ def make_springer_entry(data, bibid, mode='SAML'):
         "metadata": {
             "@type": "http:://schema.org/EBook",
             "title": record['publicationName'],
-            # TODO: non-author contributors (editors)
-            "author": [x['creator'] for x in record['creators']],
-            # "belongsTo": {
-            #     "series": "Sweetland Digital Rhetoric Collaborative"
-            # },
+            # TODO: non-author contributors (bookEditors)
+            "author": [{'name': x['creator']} for x in record['creators']],
+            "editor": [{'name': x['bookEditor']} for x in record['bookEditors']],
             "description": record['abstract'] + clio_link,
             "identifier": "https://doi.org/" + record['doi'],
             "language": record['language'],

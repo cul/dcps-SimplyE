@@ -1,4 +1,4 @@
-# import dcps_utils as util
+# Report data from Springer data store
 import json
 import os
 from pprint import pprint

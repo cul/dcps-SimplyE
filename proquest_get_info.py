@@ -1,4 +1,4 @@
-# import dcps_utils as util
+# Report data from ProQuest feed. Uses local copy of feed data.
 import json
 import os
 from pprint import pprint

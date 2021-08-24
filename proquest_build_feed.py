@@ -21,7 +21,7 @@ else:
     HTTPS_PROXY = None
 
 BIBID_LOOKUP_PATH = os.path.join(
-    MY_PATH, "output_test/proquest/proquest_lookup.json")
+    MY_PATH, "proquest_lookup.json")
 
 # FEED_PATH = os.path.join(
 #     MY_PATH, "output_test/proquest/ProQuest_BooksCatalog.json")

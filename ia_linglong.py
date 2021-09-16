@@ -4,19 +4,14 @@ from pprint import pprint
 import dcps_utils as util
 
 
-sheet_id = '1yTDyd5GQFEsVBiKOnt5T1ejBdXhxhmXVUn6jQ-dg_5I'
+SHEET_ID = '1yTDyd5GQFEsVBiKOnt5T1ejBdXhxhmXVUn6jQ-dg_5I'
+
+OUTPUT_FOLDER = 'output/ia'
 
 
 def main():
-
-    # get_linglong()
-
-    # quit()
-
-    # x = util.unpickle_it('output/ia/ia_ll_1931.pickle')
-
-    # pprint(x)
-    # quit()
+    """Script to compose OPDS feeds for Ling Long serials, one feed for 1931–1938.
+    """
 
     build_linglong_feed()
 
@@ -24,11 +19,10 @@ def main():
 
 
 def get_linglong():
-    # Get the linglong data from IA and save in one pickle per year (vol).
+    """Get the linglong data from IA and save in one pickle per year (vol).
+    """
     the_sheet = dataSheet(
-        sheet_id, 'LingLong!A:Z')
-
-    output_folder = 'output/ia/'
+        SHEET_ID, 'LingLong!A:Z')
 
     the_input = the_sheet.getData()
     heads = the_input.pop(0)
@@ -45,15 +39,12 @@ def get_linglong():
         print(' ')
         print(vol_data['vol'])
         feed_stem = 'ia_ll_' + str(vol_data['vol'])
-        pickle_path = output_folder + feed_stem + '.pickle'
+        pickle_path = OUTPUT_FOLDER + '/' + feed_stem + '.pickle'
         # print(vol_data['items'])
         feed_data = ia.extract_data(
             vol_data['items'], feed_stem, 'Ling Long (' + str(vol_data['vol']) + ')')
 
         pprint(feed_data['errors'])
-
-        # util.pickle_it(feed_data,
-        #                output_folder + feed_stem + '.pickle')
 
         print('Saving ' + str(len(feed_data['data'])
                               ) + ' records to ' + pickle_path)
@@ -61,10 +52,15 @@ def get_linglong():
         util.pickle_it(feed_data, pickle_path)
 
 
-def build_linglong_feed(pickle_dir='output/ia', output_dir='output/ia'):
-    # Run after data has been extracted via get_linglong.
+def build_linglong_feed(pickle_dir=OUTPUT_FOLDER, output_dir=OUTPUT_FOLDER):
+    """Run after data has been extracted via get_linglong.
+
+    Args:
+        pickle_dir (str, optional): Path to folder containing pickles. Defaults to OUTPUT_FOLDER.
+        output_dir (str, optional): Path to output folder. Defaults to OUTPUT_FOLDER.
+    """
     the_out_sheet = dataSheet(
-        sheet_id, 'errors!A:Z')
+        SHEET_ID, 'errors!A:Z')
 
     for y in range(1931, 1938):
         x = ia.build_feed(pickle_dir + '/ia_ll_' + str(y) +

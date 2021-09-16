@@ -13,7 +13,6 @@ from lxml import etree, html
 import dcps_utils as util
 from datetime import datetime
 import re
-import time
 
 
 contentProvider = "CUL: Internet Archive"
@@ -30,34 +29,27 @@ NSMAP = {None: "http://www.w3.org/2005/Atom",
 
 
 def main():
+    """Functions to gather ids and bibids for AI assets linked
+from CLIO, harvest metadata from IA, and compose paginated
+OPDS feeds for use in SimplyE.
 
-    str = "Benchmark for Faithful Digital Reproductions of Monographs and Serials. Version 1. December 2002. 1 online resource. Forms part of: Carnegie Corporation of New York Records. Columbia University Catalog: go to CLIO"
-
-    print(text_clean(str))
-
-    # x = get_item('ldpd_14230789_000').files
-    # from pprint import pprint
-    # pprint(x)
-    quit()
-    x = util.unpickle_it('output/ia/ia_ccny_feed.pickle')
-
-    # from pprint import pprint
-    # pprint(x)
-    for r in x:
-        print(r['identifier'])
-        print(r['cul_metadata']['bibid'])
-
+internet archive python library docs:
+https://archive.org/services/docs/api/internetarchive/
+    """
     quit()
 
 
 def extract_data(records, feed_stem, collection_title):
-    # records is list of dicts of form:
-    #     {'bibid': <bibid>, 'id':<ia_id>, 'label':<link_label>}
-    # feed_stem is the label that will be used to name XML files, e.g.:
-    #    'ia_mrp_feed'
-    # collection_title is a human-readable string, e.g.:
-    #    "Missionary Research Pamphlets"
-    # Returns dict of format {'data': the_output, 'errors': the_errors}
+    """Extract IA data from API using provided IDs, and compose results into list of records that can be used to generate OPDS. See https://archive.org/services/docs/api/internetarchive/
+
+    Args:
+        records (list): list of dicts of form: {'bibid': <bibid>, 'id':<ia_id>, 'label':<link_label>}
+        feed_stem (str): abbreviated label of feed, e.g., 'ia_mrp_feed'
+        collection_title (str): human-readable string, e.g.: "Missionary Research Pamphlets"
+
+    Returns:
+        dict: form of {'data': <the_output>, 'errors': <the_errors>}
+    """
 
     the_output = []
     the_errors = []
@@ -71,18 +63,6 @@ def extract_data(records, feed_stem, collection_title):
     the_errors += dupe_errors
 
     for record in records:
-        # print(record['id'])
-        # clio_status = util.check_clio_status(record['bibid'])
-        # if clio_status != 200:
-        #     print('HTTP status: ' + str(clio_status))
-        #     # Bibid is not in CLIO; note problem and skip.
-        #     print('ERROR: No CLIO record found for ' +
-        #           record['bibid'] + ' : ' + record['id'] + ' ('
-        #           + str(clio_status) + ')! Skipping...')
-        #     the_errors.append(
-        #         [str(datetime.today()), feed_stem, record['bibid'], record['id'], 'BIBID not in CLIO! (' + str(clio_status) + ')'])
-        #     time.sleep(2)
-        #     continue
 
         record_files = get_item(record['id']).files
         record_metadata = get_item(record['id']).metadata
@@ -116,10 +96,18 @@ def extract_data(records, feed_stem, collection_title):
     return {'data': the_output, 'errors': the_errors}
 
 
-def find_duplicates(lst):
+def find_duplicates(_list):
+    """Identify duplicates in a list, e.g., for reporting.
+
+    Args:
+        _list (list): list of items
+
+    Returns:
+        list: list of dupes
+    """
     unique = []
     dupes = []
-    for i in lst:
+    for i in _list:
         if i not in unique:
             unique.append(i)
         else:
@@ -128,6 +116,14 @@ def find_duplicates(lst):
 
 
 def parse_920(_str):
+    """Parse a string and extract the \$3 subfield as ['label'] and \$u or \$a as ['id']
+
+    Args:
+        _str (str): 920 field data with one or more IA urls
+
+    Returns:
+        dict: {'label': <text>, 'id': <IA identifier>}
+    """
     # Parse a string and extract the $3 subfield
     # as ['label'] and $u or $a as ['id']
     results = {}
@@ -141,6 +137,17 @@ def parse_920(_str):
 
 
 def build_feed(pickle_path, collection_abbr, chunk_size=100, output_dir='output/ia'):
+    """Saves OPDS output to XML file(s). Returns error data (missing elements, etc. to be sent to report datasheet.
+
+    Args:
+        pickle_path (str): path to file
+        collection_abbr (str): abbreviation of collection
+        chunk_size (int, optional): Number of records per page. Defaults to 100.
+        output_dir (str, optional): Path to output folder. Defaults to 'output/ia'.
+
+    Returns:
+        list: Errors/warnings encountered.
+    """
     # Saves output to XML file(s). Returns error data (missing elements, etc.)
     # to be sent to report datasheet.
     global clio_string
@@ -218,6 +225,17 @@ def build_feed(pickle_path, collection_abbr, chunk_size=100, output_dir='output/
 
 
 def make_entry(_parent, _dict, _bibid):
+    """    # Add an OPDS entry in XML tree to specified parent node. 
+    Collect errors to return for reporting.
+
+    Args:
+        _parent (str): name of parent node
+        _dict (dict): data to be converted to OPDS
+        _bibid (str): BIBID
+
+    Returns:
+        list: List of errors/warnings
+    """
     # Add an entry in XML tree to specified parent node.
 
     # collect errors to return for reporting
@@ -354,6 +372,16 @@ def make_entry(_parent, _dict, _bibid):
 
 
 def add_subelement(_parent, _element_name, _source_key, _dict, formated='%s', nspace='', **kwargs):
+    """Append an element to a parent drawing from given key in given dict. Kwargs are added as attributes.
+
+    Args:
+        _parent (str): Parent node name
+        _element_name (str): current node name
+        _source_key (str): key name
+        _dict (dict): target dict
+        formated (str, optional): [description]. Defaults to '%s'.
+        nspace (str, optional): Namespace. Defaults to ''.
+    """
     # append an element to a parent drawing from given key in given dict. Kwargs are added as attributes.
     if _source_key in _dict:
         if type(_source_key) == list:
@@ -368,6 +396,14 @@ def add_subelement(_parent, _element_name, _source_key, _dict, formated='%s', ns
 
 
 def add_subelement_static(_parent, _element_name, _text="", nspace='', **kwargs):
+    """Append an element to a parent with given text and attributes (kwargs). If no text then creates empty element.
+
+    Args:
+        _parent (str): parent node name
+        _element_name (str): current node name
+        _text (str, optional): Child text. Defaults to "".
+        nspace (str, optional): Namespace. Defaults to ''.
+    """
     # append an element to a parent with given text and attributes (kwargs). If no text then creates empty element.
     e_elem = etree.SubElement(_parent, nspace + _element_name, kwargs)
     if _text:
@@ -410,6 +446,14 @@ def divide_list(lst, n):
 
 
 def text_clean(the_str):
+    """Remove the useless "Go to CLIO" non-links from descriptions. Many digitized items have this added upstream.
+
+    Args:
+        the_str (str): String to remove "Go to CLIO" from.
+
+    Returns:
+        str: Result string
+    """
     # Remove the useless "Go to CLIO" non-links from descriptions.
     the_str = re.sub(
         '(<b>)?Columbia University Catalog: (</b>)?(<a.*?>)?go to CLIO(</a>)?', '', the_str)

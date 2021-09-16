@@ -36,7 +36,8 @@
         <!-- Group books by ID to consolidate data from different formats.     -->
         <xsl:for-each-group select="collection(concat($input_dir, '?select=*.xml;recurse=yes'))/ONIXmessage/product" 
             group-by="a001">
-            <xsl:sort select="a001"/>
+            <!-- Note: Taking out id sorting, to accommodate rare case that there is one BIBID for multiple books, and need to manually reorder to get the preferred one in CLIO. CLIO will take the last of duplicates only. Example is BIBID 15397913. -->
+           <!-- <xsl:sort select="a001"/>-->
             
             <xsl:variable name="bibid">
             <xsl:choose>

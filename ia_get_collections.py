@@ -10,79 +10,80 @@ import dcps_utils as util
 from sheetFeeder import dataSheet
 import ia_opds_functions as ia
 
+SHEET_ID = '1yTDyd5GQFEsVBiKOnt5T1ejBdXhxhmXVUn6jQ-dg_5I'
+
 
 def main():
+    """Script to gather ids and bibids for AI assets linked from CLIO,
+harvest metadata from IA, and save in pickled data files.
+This data then gets used to build an OPDS feed in the next
+step in workflow. Run this to extract the listed collections. 
+Relies on Google sheet with one collection per tab.
+    """
 
-    # Run this to extract all of the collections below.
+    # sheet_tab = '965tibetan'
+    # feed_stem = 'ia_tibetan_feed'
+    # collection_title = "Tibetan Studies Special Collections"
+    # print('Extracting ' + sheet_tab + ' ... ')
+    # get_collection(sheet_id, sheet_tab, feed_stem,
+    #                collection_title, multipart=False)
 
-    sheet_id = '1yTDyd5GQFEsVBiKOnt5T1ejBdXhxhmXVUn6jQ-dg_5I'
-
-    sheet_tab = '965tibetan'
-    feed_stem = 'ia_tibetan_feed'
-    collection_title = "Tibetan Studies Special Collections"
-    print('Extracting ' + sheet_tab + ' ... ')
-    get_collection(sheet_id, sheet_tab, feed_stem,
-                   collection_title, multipart=False)
-
-    quit()
+    # quit()
 
     sheet_tab = 'HebrewMSS'
     feed_stem = 'ia_hebrewmss_feed'
     collection_title = "Hebrew Manuscripts"
     print('Extracting ' + sheet_tab + ' ... ')
-    get_collection(sheet_id, sheet_tab, feed_stem,
+    get_collection(SHEET_ID, sheet_tab, feed_stem,
                    collection_title, multipart=False)
 
     sheet_tab = 'MWM'
     feed_stem = 'ia_mwm_feed'
     collection_title = "Muslim World Manuscripts"
     print('Extracting ' + sheet_tab + ' ... ')
-    get_collection(sheet_id, sheet_tab, feed_stem,
+    get_collection(SHEET_ID, sheet_tab, feed_stem,
                    collection_title, multipart=False)
 
     sheet_tab = '965carnegiedpf'
     feed_stem = 'ia_ccny_feed'
     collection_title = "Carnegie Corporation of New York"
     print('Extracting ' + sheet_tab + ' ... ')
-    get_collection(sheet_id, sheet_tab, feed_stem,
+    get_collection(SHEET_ID, sheet_tab, feed_stem,
                    collection_title, multipart=False)
-
-    quit()
 
     sheet_tab = 'AveryTrade'
     feed_stem = 'ia_avt_feed'
     collection_title = "Avery Library Architectural Trade Catalogs"
     print('Extracting ' + sheet_tab + ' ... ')
-    get_collection(sheet_id, sheet_tab, feed_stem,
+    get_collection(SHEET_ID, sheet_tab, feed_stem,
                    collection_title, multipart=False)
 
-    # sheet_tab = 'test'
     sheet_tab = 'Missionary'
     feed_stem = 'ia_mrp_feed'
     collection_title = "Missionary Research Pamphlets"
     print('Extracting ' + sheet_tab + ' ... ')
-    get_collection(sheet_id, sheet_tab, feed_stem,
+    get_collection(SHEET_ID, sheet_tab, feed_stem,
                    collection_title, multipart=False)
 
     sheet_tab = 'Durst'
     feed_stem = 'ia_durst_feed'
     collection_title = "Seymour B. Durst Old York Library"
     print('Extracting ' + sheet_tab + ' ... ')
-    get_collection(sheet_id, sheet_tab, feed_stem,
+    get_collection(SHEET_ID, sheet_tab, feed_stem,
                    collection_title, multipart=False)
 
     sheet_tab = 'MedicalHeritage'
     feed_stem = 'ia_med_feed'
     collection_title = "Medical Heritage Library"
     print('Extracting ' + sheet_tab + ' ... ')
-    get_collection(sheet_id, sheet_tab, feed_stem,
+    get_collection(SHEET_ID, sheet_tab, feed_stem,
                    collection_title, multipart=False)
 
     sheet_tab = 'WWI'
     feed_stem = 'ia_wwi_feed'
     collection_title = "WWI Pamphlets 1913-1920"
     print('Extracting ' + sheet_tab + ' ... ')
-    get_collection(sheet_id, sheet_tab, feed_stem,
+    get_collection(SHEET_ID, sheet_tab, feed_stem,
                    collection_title, multipart=False)
 
     quit()
@@ -90,7 +91,15 @@ def main():
 
 def get_collection(sheet_id, sheet_tab,
                    feed_stem, collection_title, multipart=False):
+    """Get Internet Archive collection and save to pickle.
 
+    Args:
+        sheet_id (str): Google sheet id
+        sheet_tab (str): Google sheet tab name
+        feed_stem (str): abbreviation to be used in file naming and feed identification
+        collection_title (str): Title of collection (e.g., Medical Heritage Library)
+        multipart (bool, optional): Incl/exclude multi-volume works. Defaults to False.
+    """
     the_in_sheet = dataSheet(sheet_id, sheet_tab + '!A:Z')
     the_out_sheet = dataSheet(sheet_id, 'extract-errors!A:Z')
 
@@ -117,17 +126,11 @@ def get_collection(sheet_id, sheet_tab,
         if len(rl) == 1 or multipart is True:
             the_records += rl
 
-    # print(the_records)
-
     feed_data = ia.extract_data(the_records, feed_stem, collection_title)
 
     print('Saving ' + str(len(feed_data['data'])
                           ) + ' records to ' + pickle_path)
-    # util.pickle_it(feed_data['data'], pickle_path)
     util.pickle_it(feed_data, pickle_path)
-
-    # pprint(feed_data['data'])
-    # pprint(feed_data['errors'])
 
     the_out_sheet.appendData(feed_data['errors'])
 

@@ -17,18 +17,26 @@ MY_PATH = os.path.dirname(__file__)
 
 
 def main():
+    """Script to output bibid and URLs for creating links from CLIO to SimplyE.
+Output is a CSV to upload to /cul/cul0/ldpd/simplye/clio_links/, plus
+more complete tabular data loaded into Google sheet for Data Studio reports.
+Data sources are :
+1. OPDS XML files in a given directory tree
+2. ONIX XML files in a given directory tree.
+    """
 
     CSV_OUT_PATH = os.path.join(
-        MY_PATH, 'output/clio_links/simplye_clio_links.csv')  # test
+        MY_PATH, 'output/clio_links/simplye_clio_links.csv')
+    # CSV_OUT_PATH = os.path.join(
+    #     MY_PATH, 'output_test/clio_links/simplye_clio_links.csv') # test
 
-    # OUT_SHEET = dataSheet(
-    #     '1r8oaOQT955HvAii-5sF3IDwXR1_SGXx_KZRLN40JK9s', 'Sheet1!A:Z')
     OUT_SHEET = dataSheet(
-        '1r8oaOQT955HvAii-5sF3IDwXR1_SGXx_KZRLN40JK9s', 'Test!A:Z')  # Test
+        '1r8oaOQT955HvAii-5sF3IDwXR1_SGXx_KZRLN40JK9s', 'Data!A:Z')
+    # OUT_SHEET = dataSheet(
+    #     '1r8oaOQT955HvAii-5sF3IDwXR1_SGXx_KZRLN40JK9s', 'Test!A:Z')  # Test
 
     OPDS_DIR = os.path.join(
         MY_PATH, 'output/')
-    # ONIX_DIR = '/Users/dwh2128/Documents/SimplyE/books/JHU/ONIX/ONIX3_converted/TO-IMPORT/v4/out3'
     ONIX_DIR = 'onix'
     ONIX_COLLS = [
         {'dir': 'JHU', 'name': 'Johns Hopkins University Press'},
@@ -64,6 +72,7 @@ def main():
     OUT_SHEET.clear()
     OUT_SHEET.appendData(sheet_output)
 
+    # For CSV, trim out all but cols 0 and 5 (bibid and id)
     csv_output = util.trim_array(sheet_output, [1, 2, 3, 4, 6, 7])
     csv_heads = csv_output.pop(0)
 

@@ -21,6 +21,8 @@ NSMAP = {None: "http://www.w3.org/2005/Atom",
 
 
 def main():
+    """Script to build OPDS v1.2 feed based on data from oapen_extract_data.py
+    """
 
     x = build_feed('output/oapen/oapen_clio.pickle', 'books', chunk_size=100)
 

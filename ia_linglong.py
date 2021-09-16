@@ -10,7 +10,7 @@ OUTPUT_FOLDER = 'output/ia'
 
 
 def main():
-    """Script to compose OPDS feeds for Ling Long serials, one feed for 1931–1938.
+    """Script to compose OPDS feeds for Ling Long serials, one feed per volume for 1931–1938.
     """
 
     build_linglong_feed()

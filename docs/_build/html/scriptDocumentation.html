@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Script Documentation &mdash; dcps-SimplyE  documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Welcome to DCPS-SimplyE’s documentation!" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> dcps-SimplyE
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Script Documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#internet-archive">Internet Archive</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#module-ia_opds_functions.main">General IA Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ia-get-collections-py">ia_get_collections.py</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ia-build-feeds-py">ia_build_feeds.py</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ia-linglong-py">ia_linglong.py</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ia-columbia-columns-py">ia_columbia_columns.py</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#oapen">OAPEN</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#module-oapen_extract_data.main">oapen_extract_data.py</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-oapen_build_opds.main">oapen_build_opds.py</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">dcps-SimplyE</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Script Documentation</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/scriptDocumentation.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="script-documentation">
+<h1>Script Documentation<a class="headerlink" href="#script-documentation" title="Permalink to this headline">¶</a></h1>
+<p>Documentation of Python scripts managed in <a class="reference external" href="https://github.com/cul/dcps-SimplyE">dcps-SimplyE</a>.</p>
+<section id="internet-archive">
+<h2>Internet Archive<a class="headerlink" href="#internet-archive" title="Permalink to this headline">¶</a></h2>
+<section id="module-ia_opds_functions.main">
+<span id="general-ia-functions"></span><h3>General IA Functions<a class="headerlink" href="#module-ia_opds_functions.main" title="Permalink to this headline">¶</a></h3>
+<p>Functions to gather ids and bibids for AI assets linked
+from CLIO, harvest metadata from IA, and compose paginated
+OPDS feeds for use in SimplyE.</p>
+<p>internet archive python library docs:
+<a class="reference external" href="https://archive.org/services/docs/api/internetarchive/">https://archive.org/services/docs/api/internetarchive/</a></p>
+<span class="target" id="module-ia_opds_functions"></span><dl class="py function">
+<dt class="sig sig-object py" id="ia_opds_functions.add_subelement">
+<span class="sig-prename descclassname"><span class="pre">ia_opds_functions.</span></span><span class="sig-name descname"><span class="pre">add_subelement</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_parent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_element_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_source_key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">formated</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'%s'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nspace</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ia_opds_functions.add_subelement" title="Permalink to this definition">¶</a></dt>
+<dd><p>Append an element to a parent drawing from given key in given dict. Kwargs are added as attributes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>_parent</strong> (<em>str</em>) – Parent node name</p></li>
+<li><p><strong>_element_name</strong> (<em>str</em>) – current node name</p></li>
+<li><p><strong>_source_key</strong> (<em>str</em>) – key name</p></li>
+<li><p><strong>_dict</strong> (<em>dict</em>) – target dict</p></li>
+<li><p><strong>formated</strong> (<em>str</em><em>, </em><em>optional</em>) – [description]. Defaults to ‘%s’.</p></li>
+<li><p><strong>nspace</strong> (<em>str</em><em>, </em><em>optional</em>) – Namespace. Defaults to ‘’.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ia_opds_functions.add_subelement_static">
+<span class="sig-prename descclassname"><span class="pre">ia_opds_functions.</span></span><span class="sig-name descname"><span class="pre">add_subelement_static</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_parent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_element_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_text</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nspace</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ia_opds_functions.add_subelement_static" title="Permalink to this definition">¶</a></dt>
+<dd><p>Append an element to a parent with given text and attributes (kwargs). If no text then creates empty element.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>_parent</strong> (<em>str</em>) – parent node name</p></li>
+<li><p><strong>_element_name</strong> (<em>str</em>) – current node name</p></li>
+<li><p><strong>_text</strong> (<em>str</em><em>, </em><em>optional</em>) – Child text. Defaults to “”.</p></li>
+<li><p><strong>nspace</strong> (<em>str</em><em>, </em><em>optional</em>) – Namespace. Defaults to ‘’.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ia_opds_functions.build_feed">
+<span class="sig-prename descclassname"><span class="pre">ia_opds_functions.</span></span><span class="sig-name descname"><span class="pre">build_feed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pickle_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">collection_abbr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chunk_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'output/ia'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ia_opds_functions.build_feed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Saves OPDS output to XML file(s). Returns error data (missing elements, etc. to be sent to report datasheet.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pickle_path</strong> (<em>str</em>) – path to file</p></li>
+<li><p><strong>collection_abbr</strong> (<em>str</em>) – abbreviation of collection</p></li>
+<li><p><strong>chunk_size</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of records per page. Defaults to 100.</p></li>
+<li><p><strong>output_dir</strong> (<em>str</em><em>, </em><em>optional</em>) – Path to output folder. Defaults to ‘output/ia’.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Errors/warnings encountered.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ia_opds_functions.convert_date">
+<span class="sig-prename descclassname"><span class="pre">ia_opds_functions.</span></span><span class="sig-name descname"><span class="pre">convert_date</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_datetime</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ia_opds_functions.convert_date" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ia_opds_functions.divide_list">
+<span class="sig-prename descclassname"><span class="pre">ia_opds_functions.</span></span><span class="sig-name descname"><span class="pre">divide_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lst</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ia_opds_functions.divide_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate n-sized chunks from list</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lst</strong> (<em>list</em>) – A list</p></li>
+<li><p><strong>n</strong> (<em>int</em>) – chunk size</p></li>
+</ul>
+</dd>
+<dt class="field-even">Yields</dt>
+<dd class="field-even"><p><em>generator</em> – set of n-size lists</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ia_opds_functions.extract_data">
+<span class="sig-prename descclassname"><span class="pre">ia_opds_functions.</span></span><span class="sig-name descname"><span class="pre">extract_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">records</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">feed_stem</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">collection_title</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ia_opds_functions.extract_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extract IA data from API using provided IDs, and compose results into list of records that can be used to generate OPDS. See <a class="reference external" href="https://archive.org/services/docs/api/internetarchive/">https://archive.org/services/docs/api/internetarchive/</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>records</strong> (<em>list</em>) – list of dicts of form: {‘bibid’: &lt;bibid&gt;, ‘id’:&lt;ia_id&gt;, ‘label’:&lt;link_label&gt;}</p></li>
+<li><p><strong>feed_stem</strong> (<em>str</em>) – abbreviated label of feed, e.g., ‘ia_mrp_feed’</p></li>
+<li><p><strong>collection_title</strong> (<em>str</em>) – human-readable string, e.g.: “Missionary Research Pamphlets”</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>form of {‘data’: &lt;the_output&gt;, ‘errors’: &lt;the_errors&gt;}</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ia_opds_functions.find_duplicates">
+<span class="sig-prename descclassname"><span class="pre">ia_opds_functions.</span></span><span class="sig-name descname"><span class="pre">find_duplicates</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_list</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ia_opds_functions.find_duplicates" title="Permalink to this definition">¶</a></dt>
+<dd><p>Identify duplicates in a list, e.g., for reporting.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>_list</strong> (<em>list</em>) – list of items</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>list of dupes</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ia_opds_functions.fragment_cleaner">
+<span class="sig-prename descclassname"><span class="pre">ia_opds_functions.</span></span><span class="sig-name descname"><span class="pre">fragment_cleaner</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ia_opds_functions.fragment_cleaner" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove extraneous markup from description text, leaving only &lt;p&gt; container.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>_str</strong> (<em>String</em>) – String containing markup</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Cleaned up text.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>[String]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ia_opds_functions.main">
+<span class="sig-prename descclassname"><span class="pre">ia_opds_functions.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ia_opds_functions.main" title="Permalink to this definition">¶</a></dt>
+<dd><p>Functions to gather ids and bibids for AI assets linked
+from CLIO, harvest metadata from IA, and compose paginated
+OPDS feeds for use in SimplyE.</p>
+<p>internet archive python library docs:
+<a class="reference external" href="https://archive.org/services/docs/api/internetarchive/">https://archive.org/services/docs/api/internetarchive/</a></p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ia_opds_functions.make_entry">
+<span class="sig-prename descclassname"><span class="pre">ia_opds_functions.</span></span><span class="sig-name descname"><span class="pre">make_entry</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_parent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_bibid</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ia_opds_functions.make_entry" title="Permalink to this definition">¶</a></dt>
+<dd><p># Add an OPDS entry in XML tree to specified parent node.
+Collect errors to return for reporting.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>_parent</strong> (<em>str</em>) – name of parent node</p></li>
+<li><p><strong>_dict</strong> (<em>dict</em>) – data to be converted to OPDS</p></li>
+<li><p><strong>_bibid</strong> (<em>str</em>) – BIBID</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>List of errors/warnings</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ia_opds_functions.parse_920">
+<span class="sig-prename descclassname"><span class="pre">ia_opds_functions.</span></span><span class="sig-name descname"><span class="pre">parse_920</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ia_opds_functions.parse_920" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parse a string and extract the $3 subfield as [‘label’] and $u or $a as [‘id’]</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>_str</strong> (<em>str</em>) – 920 field data with one or more IA urls</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>{‘label’: &lt;text&gt;, ‘id’: &lt;IA identifier&gt;}</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ia_opds_functions.text_clean">
+<span class="sig-prename descclassname"><span class="pre">ia_opds_functions.</span></span><span class="sig-name descname"><span class="pre">text_clean</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">the_str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ia_opds_functions.text_clean" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove the useless “Go to CLIO” non-links from descriptions. Many digitized items have this added upstream.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>the_str</strong> (<em>str</em>) – String to remove “Go to CLIO” from.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Result string</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="ia-get-collections-py">
+<h3>ia_get_collections.py<a class="headerlink" href="#ia-get-collections-py" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><span class="target" id="module-ia_get_collections"></span><dl class="py function">
+<dt class="sig sig-object py" id="ia_get_collections.get_collection">
+<span class="sig-prename descclassname"><span class="pre">ia_get_collections.</span></span><span class="sig-name descname"><span class="pre">get_collection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sheet_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sheet_tab</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">feed_stem</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">collection_title</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">multipart</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ia_get_collections.get_collection" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get Internet Archive collection and save to pickle.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sheet_id</strong> (<em>str</em>) – Google sheet id</p></li>
+<li><p><strong>sheet_tab</strong> (<em>str</em>) – Google sheet tab name</p></li>
+<li><p><strong>feed_stem</strong> (<em>str</em>) – abbreviation to be used in file naming and feed identification</p></li>
+<li><p><strong>collection_title</strong> (<em>str</em>) – Title of collection (e.g., Medical Heritage Library)</p></li>
+<li><p><strong>multipart</strong> (<em>bool</em><em>, </em><em>optional</em>) – Incl/exclude multi-volume works. Defaults to False.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ia_get_collections.main">
+<span class="sig-prename descclassname"><span class="pre">ia_get_collections.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ia_get_collections.main" title="Permalink to this definition">¶</a></dt>
+<dd><p>Script to gather ids and bibids for AI assets linked from CLIO,
+harvest metadata from IA, and save in pickled data files.
+This data then gets used to build an OPDS feed in the next
+step in workflow. Run this to extract the listed collections.
+Relies on Google sheet with one collection per tab.</p>
+</dd></dl>
+
+</div></blockquote>
+</section>
+<section id="ia-build-feeds-py">
+<h3>ia_build_feeds.py<a class="headerlink" href="#ia-build-feeds-py" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><span class="target" id="module-ia_build_feeds"></span><dl class="py function">
+<dt class="sig sig-object py" id="ia_build_feeds.main">
+<span class="sig-prename descclassname"><span class="pre">ia_build_feeds.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ia_build_feeds.main" title="Permalink to this definition">¶</a></dt>
+<dd><p>Script to compose OPDS v1.2 XML feeds using data saved from ia_get_collections.py.
+Modify list of collections as needed.</p>
+</dd></dl>
+
+</div></blockquote>
+</section>
+<section id="ia-linglong-py">
+<h3>ia_linglong.py<a class="headerlink" href="#ia-linglong-py" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><span class="target" id="module-ia_linglong"></span><dl class="py function">
+<dt class="sig sig-object py" id="ia_linglong.build_linglong_feed">
+<span class="sig-prename descclassname"><span class="pre">ia_linglong.</span></span><span class="sig-name descname"><span class="pre">build_linglong_feed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pickle_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'output/ia'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'output/ia'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ia_linglong.build_linglong_feed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run after data has been extracted via get_linglong.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pickle_dir</strong> (<em>str</em><em>, </em><em>optional</em>) – Path to folder containing pickles. Defaults to OUTPUT_FOLDER.</p></li>
+<li><p><strong>output_dir</strong> (<em>str</em><em>, </em><em>optional</em>) – Path to output folder. Defaults to OUTPUT_FOLDER.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ia_linglong.get_linglong">
+<span class="sig-prename descclassname"><span class="pre">ia_linglong.</span></span><span class="sig-name descname"><span class="pre">get_linglong</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ia_linglong.get_linglong" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the linglong data from IA and save in one pickle per year (vol).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ia_linglong.main">
+<span class="sig-prename descclassname"><span class="pre">ia_linglong.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ia_linglong.main" title="Permalink to this definition">¶</a></dt>
+<dd><p>Script to compose OPDS feeds for Ling Long serials, one feed per volume for 1931–1938.</p>
+</dd></dl>
+
+</div></blockquote>
+</section>
+<section id="ia-columbia-columns-py">
+<h3>ia_columbia_columns.py<a class="headerlink" href="#ia-columbia-columns-py" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><span class="target" id="module-ia_columbia_columns"></span><dl class="py function">
+<dt class="sig sig-object py" id="ia_columbia_columns.main">
+<span class="sig-prename descclassname"><span class="pre">ia_columbia_columns.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ia_columbia_columns.main" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get IA collection specific to serial (Columbia Library Columns).</p>
+</dd></dl>
+
+</div></blockquote>
+</section>
+</section>
+<section id="oapen">
+<h2>OAPEN<a class="headerlink" href="#oapen" title="Permalink to this headline">¶</a></h2>
+<p>Scripts to obtain data from OAPEN and compose into OPDS data.</p>
+<section id="module-oapen_extract_data.main">
+<span id="oapen-extract-data-py"></span><h3>oapen_extract_data.py<a class="headerlink" href="#module-oapen_extract_data.main" title="Permalink to this headline">¶</a></h3>
+<p>Script to extract data from OAPEN API, based on a list provided in Google sheet.</p>
+<span class="target" id="module-oapen_extract_data"></span><dl class="py function">
+<dt class="sig sig-object py" id="oapen_extract_data.divide_list">
+<span class="sig-prename descclassname"><span class="pre">oapen_extract_data.</span></span><span class="sig-name descname"><span class="pre">divide_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lst</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#oapen_extract_data.divide_list" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="oapen_extract_data.extract_data">
+<span class="sig-prename descclassname"><span class="pre">oapen_extract_data.</span></span><span class="sig-name descname"><span class="pre">extract_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">records</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">feed_stem</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">collection_title</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#oapen_extract_data.extract_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="oapen_extract_data.find_duplicates">
+<span class="sig-prename descclassname"><span class="pre">oapen_extract_data.</span></span><span class="sig-name descname"><span class="pre">find_duplicates</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lst</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#oapen_extract_data.find_duplicates" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="oapen_extract_data.get_collection">
+<span class="sig-prename descclassname"><span class="pre">oapen_extract_data.</span></span><span class="sig-name descname"><span class="pre">get_collection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sheet_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sheet_tab</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">feed_stem</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">collection_title</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">multipart</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#oapen_extract_data.get_collection" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="oapen_extract_data.get_oapen_item">
+<span class="sig-prename descclassname"><span class="pre">oapen_extract_data.</span></span><span class="sig-name descname"><span class="pre">get_oapen_item</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#oapen_extract_data.get_oapen_item" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="oapen_extract_data.main">
+<span class="sig-prename descclassname"><span class="pre">oapen_extract_data.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#oapen_extract_data.main" title="Permalink to this definition">¶</a></dt>
+<dd><p>Script to extract data from OAPEN API, based on a list provided in Google sheet.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="oapen_extract_data.parse_920">
+<span class="sig-prename descclassname"><span class="pre">oapen_extract_data.</span></span><span class="sig-name descname"><span class="pre">parse_920</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#oapen_extract_data.parse_920" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-oapen_build_opds.main">
+<span id="oapen-build-opds-py"></span><h3>oapen_build_opds.py<a class="headerlink" href="#module-oapen_build_opds.main" title="Permalink to this headline">¶</a></h3>
+<p>Script to build OPDS v1.2 feed based on data from oapen_extract_data.py</p>
+<span class="target" id="module-oapen_build_opds"></span><dl class="py function">
+<dt class="sig sig-object py" id="oapen_build_opds.build_feed">
+<span class="sig-prename descclassname"><span class="pre">oapen_build_opds.</span></span><span class="sig-name descname"><span class="pre">build_feed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pickle_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">collection_abbr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chunk_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#oapen_build_opds.build_feed" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="oapen_build_opds.convert_date">
+<span class="sig-prename descclassname"><span class="pre">oapen_build_opds.</span></span><span class="sig-name descname"><span class="pre">convert_date</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_datetime</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#oapen_build_opds.convert_date" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="oapen_build_opds.divide_list">
+<span class="sig-prename descclassname"><span class="pre">oapen_build_opds.</span></span><span class="sig-name descname"><span class="pre">divide_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lst</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#oapen_build_opds.divide_list" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="oapen_build_opds.main">
+<span class="sig-prename descclassname"><span class="pre">oapen_build_opds.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#oapen_build_opds.main" title="Permalink to this definition">¶</a></dt>
+<dd><p>Script to build OPDS v1.2 feed based on data from oapen_extract_data.py</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="oapen_build_opds.make_entry">
+<span class="sig-prename descclassname"><span class="pre">oapen_build_opds.</span></span><span class="sig-name descname"><span class="pre">make_entry</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_parent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_bibid</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#oapen_build_opds.make_entry" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="oapen_build_opds.metadata_finder">
+<span class="sig-prename descclassname"><span class="pre">oapen_build_opds.</span></span><span class="sig-name descname"><span class="pre">metadata_finder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_keyValue</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">result_key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'value'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#oapen_build_opds.metadata_finder" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="oapen_build_opds.process_bitstreams">
+<span class="sig-prename descclassname"><span class="pre">oapen_build_opds.</span></span><span class="sig-name descname"><span class="pre">process_bitstreams</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_list</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#oapen_build_opds.process_bitstreams" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to DCPS-SimplyE’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, CUL-DCPS.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

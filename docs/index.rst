@@ -10,6 +10,7 @@ Welcome to DCPS-SimplyE's documentation!
    :maxdepth: 2
    :caption: Contents:
 
+   scriptDocumentation
 
 
 Indices and tables

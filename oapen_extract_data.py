@@ -23,6 +23,8 @@ output_dir = 'output_test/oapen' if TEST else 'output/oapen'
 
 
 def main():
+    """Script to extract data from OAPEN API, based on a list provided in Google sheet.
+    """
 
     # x = get_oapen_item(627426)
     # pprint(x)

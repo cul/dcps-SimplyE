@@ -3,16 +3,14 @@
 import dcps_utils as util
 import os
 
-my_path = os.path.dirname(__file__)
+MY_PATH = os.path.dirname(__file__)
 
-jing_path = os.path.join(
-    my_path, '../resources/jing-20091111/bin/jing.jar')
-schema_path = os.path.join(
-    my_path, 'schemas/opds.rnc')
+SCHEMA_PATH = os.path.join(MY_PATH, 'schemas/opds.rnc')
 
 
 def main():
-
+    """Validate all the OPDS files in a given directory using the OPDS Relax Schema.
+    """
     # output_base_dir = 'output_test/ia'
     output_base_dir = 'output/ia'
 
@@ -41,7 +39,7 @@ def main():
 
     for c in the_collections:
 
-        the_path = os.path.join(my_path, output_base_dir, c)
+        the_path = os.path.join(MY_PATH, output_base_dir, c)
         val = validate_files(the_path)
         # print(val)
         the_errors = [f for f in val if f['errors']]
@@ -54,10 +52,20 @@ def main():
     quit()
 
 
-def validate_files(_dir):
-    # Return a list of dicts of format
-    # {'file':<filepath>,'errors':<error_output>}
-    # No errors means file is valid.
+def validate_files(_dir, schema_path=SCHEMA_PATH):
+    """Validate OPDS v1.2 against schema.
+    Return a list of dicts of errors matched to files.
+    No errors means file is valid.
+
+    Args:
+        _dir (str): Path to folder of OPDS XML files
+        schema_path (str, optional): Path to schema. Defaults to SCHEMA_PATH.
+
+    Returns:
+        list: [{'file':<filepath1>,'errors':<error_output1>}, 
+        {'file':<filepath2>,'errors':<error_output2>} ...]
+    """
+
     the_files = os.walk(_dir)
 
     # Collect all the XML files into a list to validate.
@@ -69,8 +77,7 @@ def validate_files(_dir):
     the_output = []
     for a_file in the_paths:
         # print('Validating ' + a_file + ' ... ')
-        errors = util.jing_process(jing_path,
-                                   a_file, schema_path, compact=True)
+        errors = util.jing_process(a_file, SCHEMA_PATH, compact=True)
         the_output.append({'file': a_file, 'errors': errors})
         # if errors:
         #     print('ERROR! ' + a_file + ': ' + errors)

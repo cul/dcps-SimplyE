@@ -12,6 +12,8 @@ import opds_validate
 TEST = True
 
 OUTPUT_DIR = 'output_test/ia' if TEST else 'output/ia'
+# SHEET_ID = '1yTDyd5GQFEsVBiKOnt5T1ejBdXhxhmXVUn6jQ-dg_5I'
+SHEET_ID = '1sQBo05FvQ8Z6Yi-shBWRHYdgDgjQPdD2SgP-6-NigGg'
 
 
 def main():
@@ -19,18 +21,18 @@ def main():
     Modify list of collections as needed.
     """
     the_out_sheet = dataSheet(
-        '1yTDyd5GQFEsVBiKOnt5T1ejBdXhxhmXVUn6jQ-dg_5I', 'errors!A:Z')
+        SHEET_ID, 'errors!A:Z')
 
     the_collections = [
-        ('output/ia/ia_avt_feed.pickle', 'avt'),
-        ('output/ia/ia_ccny_feed.pickle', 'ccny'),
-        ('output/ia/ia_durst_feed.pickle', 'durst'),
-        ('output/ia/ia_med_feed.pickle', 'med'),
-        ('output/ia/ia_mrp_feed.pickle', 'mrp'),
-        ('output/ia/ia_mwm_feed.pickle', 'mwm'),
-        ('output/ia/ia_wwi_feed.pickle', 'wwi'),
-        ('output/ia/ia_clc_feed.pickle', 'clc'),
-        ('output/ia/ia_hebrewmss_feed.pickle', 'hebrewmss'),
+        (OUTPUT_DIR + '/ia_avt_feed.pickle', 'avt'),
+        (OUTPUT_DIR + '/ia_ccny_feed.pickle', 'ccny'),
+        (OUTPUT_DIR + '/ia_durst_feed.pickle', 'durst'),
+        (OUTPUT_DIR + '/ia_med_feed.pickle', 'med'),
+        (OUTPUT_DIR + '/ia_mrp_feed.pickle', 'mrp'),
+        (OUTPUT_DIR + '/ia_mwm_feed.pickle', 'mwm'),
+        (OUTPUT_DIR + '/ia_wwi_feed.pickle', 'wwi'),
+        # ('output/ia/ia_clc_feed.pickle', 'clc'),
+        (OUTPUT_DIR + '/ia_hebrewmss_feed.pickle', 'hebrewmss'),
         # ('output/ia/ia_tibetan_feed.pickle', 'tibet'),
     ]
 
@@ -38,7 +40,7 @@ def main():
         x = ia.build_feed(col[0], col[1], output_dir=OUTPUT_DIR)
         the_out_sheet.appendData(x)
 
-    build_linglong_feed(output_dir=OUTPUT_DIR)
+    # build_linglong_feed(output_dir=OUTPUT_DIR)
 
     # validate the output
     x = opds_validate.validate_files(OUTPUT_DIR)

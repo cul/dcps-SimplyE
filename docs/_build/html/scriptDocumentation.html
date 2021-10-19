@@ -18,7 +18,7 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="Welcome to DCPS-SimplyE’s documentation!" href="index.html" /> 
+    <link rel="prev" title="DCPS-SimplyE’s Python Documentation" href="index.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -52,6 +52,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#module-oapen_build_opds.main">oapen_build_opds.py</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#module-clio_generate_links">Misc.</a></li>
 </ul>
 </li>
 </ul>
@@ -82,7 +83,7 @@
              
   <section id="script-documentation">
 <h1>Script Documentation<a class="headerlink" href="#script-documentation" title="Permalink to this headline">¶</a></h1>
-<p>Documentation of Python scripts managed in <a class="reference external" href="https://github.com/cul/dcps-SimplyE">dcps-SimplyE</a>.</p>
+<p>Auto-generated documentation of Python scripts managed in <a class="reference external" href="https://github.com/cul/dcps-SimplyE">dcps-SimplyE</a>.</p>
 <section id="internet-archive">
 <h2>Internet Archive<a class="headerlink" href="#internet-archive" title="Permalink to this headline">¶</a></h2>
 <section id="module-ia_opds_functions.main">
@@ -221,6 +222,23 @@ OPDS feeds for use in SimplyE.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>[String]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ia_opds_functions.ids_from_pickle">
+<span class="sig-prename descclassname"><span class="pre">ia_opds_functions.</span></span><span class="sig-name descname"><span class="pre">ids_from_pickle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pickle_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ia_opds_functions.ids_from_pickle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return list of identifiers from pickled IA collection. For troubleshooting purposes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>pickle_path</strong> (<em>str</em>) – path to pickle file</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>list of ids</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list</p>
 </dd>
 </dl>
 </dd></dl>
@@ -463,13 +481,66 @@ Modify list of collections as needed.</p>
 
 </section>
 </section>
+<section id="module-clio_generate_links">
+<span id="misc"></span><h2>Misc.<a class="headerlink" href="#module-clio_generate_links" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="clio_generate_links.get_ia_serials_lookups">
+<span class="sig-prename descclassname"><span class="pre">clio_generate_links.</span></span><span class="sig-name descname"><span class="pre">get_ia_serials_lookups</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#clio_generate_links.get_ia_serials_lookups" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="clio_generate_links.main">
+<span class="sig-prename descclassname"><span class="pre">clio_generate_links.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#clio_generate_links.main" title="Permalink to this definition">¶</a></dt>
+<dd><p>Script to output bibid and URLs for creating links from CLIO to SimplyE.
+Output is a CSV to upload to /cul/cul0/ldpd/simplye/clio_links/, plus
+more complete tabular data loaded into Google sheet for Data Studio reports.
+Data sources are :
+1. OPDS XML files in a given directory tree
+2. ONIX XML files in a given directory tree.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="clio_generate_links.merge_booleans">
+<span class="sig-prename descclassname"><span class="pre">clio_generate_links.</span></span><span class="sig-name descname"><span class="pre">merge_booleans</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cols</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">match_key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#clio_generate_links.merge_booleans" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<span class="target" id="module-opds_validate"></span><dl class="py function">
+<dt class="sig sig-object py" id="opds_validate.main">
+<span class="sig-prename descclassname"><span class="pre">opds_validate.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#opds_validate.main" title="Permalink to this definition">¶</a></dt>
+<dd><p>Validate all the OPDS files in a given directory using the OPDS Relax Schema.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="opds_validate.validate_files">
+<span class="sig-prename descclassname"><span class="pre">opds_validate.</span></span><span class="sig-name descname"><span class="pre">validate_files</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">schema_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'/Users/dwh2128/Documents/SimplyE/dcps-SimplyE/schemas/opds.rnc'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#opds_validate.validate_files" title="Permalink to this definition">¶</a></dt>
+<dd><p>Validate OPDS v1.2 against schema.
+Return a list of dicts of errors matched to files.
+No errors means file is valid.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>_dir</strong> (<em>str</em>) – Path to folder of OPDS XML files</p></li>
+<li><p><strong>schema_path</strong> (<em>str</em><em>, </em><em>optional</em>) – Path to schema. Defaults to SCHEMA_PATH.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>[{‘file’:&lt;filepath1&gt;,’errors’:&lt;error_output1&gt;},
+{‘file’:&lt;filepath2&gt;,’errors’:&lt;error_output2&gt;} …]</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to DCPS-SimplyE’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="index.html" class="btn btn-neutral float-left" title="DCPS-SimplyE’s Python Documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>

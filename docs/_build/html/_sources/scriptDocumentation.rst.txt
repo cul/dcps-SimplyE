@@ -1,7 +1,7 @@
 Script Documentation
 ====================
 
-Documentation of Python scripts managed in `dcps-SimplyE <https://github.com/cul/dcps-SimplyE>`_.
+Auto-generated documentation of Python scripts managed in `dcps-SimplyE <https://github.com/cul/dcps-SimplyE>`_.
 
 
 Internet Archive
@@ -79,4 +79,17 @@ oapen_build_opds.py
 
 .. Springer
 .. --------
+
+Misc.
+-----
+
+
+.. automodule:: clio_generate_links
+    :members:
+    :undoc-members:
+
+
+.. automodule:: opds_validate
+    :members:
+    :undoc-members:
 

@@ -39,6 +39,19 @@ https://archive.org/services/docs/api/internetarchive/
     quit()
 
 
+def ids_from_pickle(pickle_path):
+    """Return list of identifiers from pickled IA collection. For troubleshooting purposes.
+
+    Args:
+        pickle_path (str): path to pickle file
+
+    Returns:
+        list: list of ids
+    """
+    x = util.unpickle_it(pickle_path)
+    return [r['identifier'] for r in x['data']]
+
+
 def extract_data(records, feed_stem, collection_title):
     """Extract IA data from API using provided IDs, and compose results into list of records that can be used to generate OPDS. See https://archive.org/services/docs/api/internetarchive/
 

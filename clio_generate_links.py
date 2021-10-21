@@ -15,6 +15,13 @@ from itertools import groupby
 
 MY_PATH = os.path.dirname(__file__)
 
+TEST = True
+
+SHEET_ID = '1r8oaOQT955HvAii-5sF3IDwXR1_SGXx_KZRLN40JK9s'
+SHEET_TAB = 'Test' if TEST else 'Data'
+OUTPUT_DIR = 'output_test' if TEST else 'output'
+SITE = 'https://ebooks.lyrasistechnology.org/columbia' if TEST else 'https://academic.lyrasistechnology.org/columbia'
+
 
 def main():
     """Script to output bibid and URLs for creating links from CLIO to SimplyE.
@@ -26,17 +33,13 @@ Data sources are :
     """
 
     CSV_OUT_PATH = os.path.join(
-        MY_PATH, 'output/clio_links/simplye_clio_links.csv')
-    # CSV_OUT_PATH = os.path.join(
-    #     MY_PATH, 'output_test/clio_links/simplye_clio_links.csv') # test
+        MY_PATH, OUTPUT_DIR + '/clio_links/simplye_clio_links.csv')
 
-    OUT_SHEET = dataSheet(
-        '1r8oaOQT955HvAii-5sF3IDwXR1_SGXx_KZRLN40JK9s', 'Data!A:Z')
-    # OUT_SHEET = dataSheet(
-    #     '1r8oaOQT955HvAii-5sF3IDwXR1_SGXx_KZRLN40JK9s', 'Test!A:Z')  # Test
+    OUT_SHEET = dataSheet(SHEET_ID, SHEET_TAB + '!A:Z')
 
     OPDS_DIR = os.path.join(
-        MY_PATH, 'output/')
+        MY_PATH,  OUTPUT_DIR + '/')
+    print(OPDS_DIR)
     ONIX_DIR = 'onix'
     ONIX_COLLS = [
         {'dir': 'JHU', 'name': 'Johns Hopkins University Press'},
@@ -48,8 +51,9 @@ Data sources are :
     sheet_output = []  # this will contain the combined output
 
     print('*** Getting OPDS data ... ***')
-    params = "file_path=" + OPDS_DIR
+    params = "file_path=" + OPDS_DIR + " site=" + SITE
     opds_data = util.xml_to_array(OPDS_XSLT, OPDS_XSLT, params=params)
+
     print(str(len(opds_data)) + " records found in OPDS.")
     sheet_output += opds_data
 

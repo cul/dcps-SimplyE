@@ -1,8 +1,6 @@
 # Generate OPDS v2.0 JSON from API output
 import json
 import os
-from pickle import APPEND
-from pprint import pprint
 import requests
 from datetime import datetime
 from configparser import ConfigParser
@@ -28,11 +26,6 @@ ACQ_SAML_BASE_URL = 'https://fsso.springer.com/saml/login?idp=' + \
 
 ACQ_EZ_BASE_URL = 'https://link-springer-com.ezproxy.cul.columbia.edu/content/pdf/10.1007%2F'
 
-# "ePubUrl": "https://link.springer.com/download/epub/10.1007/978-1-4302-4201-7.epub"
-
-
-# IMAGE_BASE_URL = 'https://media.springernature.com/w153/springer-static/cover/book/'
-# IMAGE_BASE_URL = 'https://covers.springernature.com/books/jpg_width_95_pixels/'
 SPRINGER_IMAGE_BASE_URL = 'https://covers.springernature.com/books/jpg_width_%s_pixels/%s.jpg'
 
 

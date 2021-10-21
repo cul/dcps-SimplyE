@@ -31,7 +31,7 @@ def main():
         (OUTPUT_DIR + '/ia_mrp_feed.pickle', 'mrp'),
         (OUTPUT_DIR + '/ia_mwm_feed.pickle', 'mwm'),
         (OUTPUT_DIR + '/ia_wwi_feed.pickle', 'wwi'),
-        # ('output/ia/ia_clc_feed.pickle', 'clc'),
+        (OUTPUT_DIR + '/ia_clc_feed.pickle', 'clc'),
         (OUTPUT_DIR + '/ia_hebrewmss_feed.pickle', 'hebrewmss'),
         # ('output/ia/ia_tibetan_feed.pickle', 'tibet'),
     ]
@@ -40,7 +40,7 @@ def main():
         x = ia.build_feed(col[0], col[1], output_dir=OUTPUT_DIR)
         the_out_sheet.appendData(x)
 
-    # build_linglong_feed(output_dir=OUTPUT_DIR)
+    build_linglong_feed(pickle_dir=OUTPUT_DIR, output_dir=OUTPUT_DIR)
 
     # validate the output
     x = opds_validate.validate_files(OUTPUT_DIR)

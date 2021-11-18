@@ -340,6 +340,21 @@ step in workflow. Run this to extract the listed collections.
 Relies on Google sheet with one collection per tab.</p>
 </dd></dl>
 
+<dl class="py function">
+<dt class="sig sig-object py" id="ia_get_collections.pickle_collection">
+<span class="sig-prename descclassname"><span class="pre">ia_get_collections.</span></span><span class="sig-name descname"><span class="pre">pickle_collection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sheet_tab</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">feed_stem</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">collection_title</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ia_get_collections.pickle_collection" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save an IA collection in a pickle file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sheet_tab</strong> (<em>str</em>) – sheet tab name</p></li>
+<li><p><strong>feed_stem</strong> (<em>str</em>) – feed stem</p></li>
+<li><p><strong>collection_title</strong> (<em>str</em>) – collection title</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
 </div></blockquote>
 </section>
 <section id="ia-build-feeds-py">
@@ -484,8 +499,8 @@ Modify list of collections as needed.</p>
 <section id="module-clio_generate_links">
 <span id="misc"></span><h2>Misc.<a class="headerlink" href="#module-clio_generate_links" title="Permalink to this headline">¶</a></h2>
 <dl class="py function">
-<dt class="sig sig-object py" id="clio_generate_links.get_ia_serials_lookups">
-<span class="sig-prename descclassname"><span class="pre">clio_generate_links.</span></span><span class="sig-name descname"><span class="pre">get_ia_serials_lookups</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#clio_generate_links.get_ia_serials_lookups" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="clio_generate_links.find_in_lookup">
+<span class="sig-prename descclassname"><span class="pre">clio_generate_links.</span></span><span class="sig-name descname"><span class="pre">find_in_lookup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_key</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#clio_generate_links.find_in_lookup" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
@@ -496,7 +511,8 @@ Output is a CSV to upload to /cul/cul0/ldpd/simplye/clio_links/, plus
 more complete tabular data loaded into Google sheet for Data Studio reports.
 Data sources are :
 1. OPDS XML files in a given directory tree
-2. ONIX XML files in a given directory tree.</p>
+2. ONIX XML files in a given directory tree
+3. ProQuest OPDS 2.0 JSON feed file given directory tree</p>
 </dd></dl>
 
 <dl class="py function">

@@ -8,6 +8,7 @@ import time
 import re
 from io import StringIO
 import csv
+import sys
 
 MY_PATH = os.path.dirname(__file__)
 CONFIG_PATH = os.path.join(MY_PATH, "config.ini")
@@ -142,7 +143,6 @@ def jing_process(filePath, schemaPath, compact=False):
     Returns:
         str: Result stdout
     """
-    # Process an xml file against a schema (rng or schematron) using Jing.
     # Tested with jing-20091111.
     # https://code.google.com/archive/p/jing-trang/downloads
     # -d flag (undocumented!) = include diagnostics in output.
@@ -164,7 +164,34 @@ def jing_process(filePath, schemaPath, compact=False):
         return result[0].decode("utf-8")
 
 
-def xml_to_array(in_file, xslt_file, delim='|', params=" "):
+def jing_process_batch(data_folder, schema_path, pattern, compact=False):
+    """Process a set of xml files within a directory against a schema (rng or schematron) using Jing. Relies on JING_PATH (path to jing-20091111 or comparable).
+
+    Args:
+        data_folder (str): path to directory to process
+        schema_path (str): path to schema
+        pattern (str): matching expression for files (see 'find' command)
+        compact (bool, optional): Use "compact" RelaxNG schema format. Defaults to False.
+
+    Returns:
+        str: Result stdout
+    """
+    # Xargs batches files so they won't exceed limit on arguments with thousands of files.
+    flags = " -cd " if compact is True else " -d "
+    return run_bash(
+        "find "
+        + data_folder
+        + ' -name "'
+        + pattern
+        + '" | xargs -L 128 java -jar '
+        + CONFIG["FILES"]["jingPath"]
+        + flags
+        + schema_path,
+        errorPrefix="JING",
+    )
+
+
+def xml_to_array(in_file, xslt_file, delim="|", params=" "):
     """Process XML via XSLT to tabular format, and then return as a list of lists.
     Requires XSLT that outputs delimited plain text.
 
@@ -436,3 +463,18 @@ def fix_cr(_str):
         str: Output string
     """
     return re.sub(r"\x0D", "\n", _str, flags=re.DOTALL)
+
+
+def find_config(name="config.ini"):
+    """Get the abs path to config.ini file, based on sys.path
+
+    Args:
+        name (str, optional): config file name. Defaults to "config.ini".
+
+    Returns:
+        str: path to config file
+    """
+    for dirname in sys.path:
+        for root, dirs, files in os.walk(dirname):
+            if name in files:
+                return os.path.join(root, name)

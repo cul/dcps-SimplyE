@@ -1,0 +1,1 @@
+This set has 28 products commented out due to problems integrating in the circulation manager. When The problem is fixed, un-comment them and rerun the script to generate CLIO links.

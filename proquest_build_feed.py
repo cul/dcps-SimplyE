@@ -23,8 +23,8 @@ else:
 BIBID_LOOKUP_PATH = os.path.join(
     MY_PATH, "proquest_lookup.json")
 
-# FEED_PATH = os.path.join(
-#     MY_PATH, "output_test/proquest/ProQuest_BooksCatalog.json")
+FEED_PATH = os.path.join(
+    MY_PATH, "output_test/proquest/ProQuest_BooksCatalog.json")
 
 EPUB_OUT_PATH = os.path.join(
     MY_PATH, "output_test/proquest/proquest_books_catalog_epub.json")
@@ -41,7 +41,10 @@ def main():
 
     feed_data = get_proquest_feed(input_feed_url)
 
-    print("")
+    print("Dumping response body")
+    with open(FEED_PATH, "w") as f:
+        json.dump(feed_data, f)
+
     print("Assembling EPUB feed ...")
 
     epub_opds = build_proquest_opds(feed_data, feed_type="epub")
@@ -94,7 +97,7 @@ def get_proquest_feed(url):
         try:
             res = json.loads(response.text)
             a_book = json.loads(response.text)[
-                'opdsFeed']['groups'][0]['publications'][0]
+                'opdsFeed'] # ['groups'][0]['publications'][0]
         except json.decoder.JSONDecodeError:
             raise Exception("*** ERROR: Could not parse JSON data at " + url)
         except TypeError:

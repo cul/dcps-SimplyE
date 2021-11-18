@@ -1,0 +1,511 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE ONIXmessage
+  SYSTEM "ONIX_BookProduct_DTDs+codes_Issue_51/ONIX_BookProduct_3.0_short.dtd">
+<ONIXmessage xmlns="http://ns.editeur.org/onix/3.0/short" release="3.0">
+    <header refname="Header" shortname="header">
+        <sender refname="Sender" shortname="sender">
+            <x298 refname="SenderName" shortname="x298">CodeMantra</x298>
+            <x299 refname="ContactName" shortname="x299">cpsupport</x299>
+            <j272 refname="EmailAddress" shortname="j272">cpsupport@codemantra.com</j272>
+        </sender>
+        <addressee refname="Addressee" shortname="addressee">
+            <x300 refname="AddresseeName" shortname="x300">To be Defined</x300>
+        </addressee>
+        <m180 refname="MessageNumber" shortname="m180">1</m180>
+        <x307 refname="SentDateTime" shortname="x307">20210210T2258</x307>
+        <m184 refname="DefaultLanguageOfText" shortname="m184">eng</m184>
+    </header>
+    
+    
+    <product>
+        <a001>9780801881282</a001>
+        <a002>03</a002>
+        <productidentifier>
+            <b221>02</b221>
+            <b244>0801881285</b244>
+        </productidentifier>
+        <productidentifier>
+            <b221>15</b221>
+            <b244>9780801881282</b244>
+        </productidentifier>
+        <descriptivedetail>
+            <x314>00</x314>
+            <b012>EA</b012>
+            <b333>E107</b333>
+            <titledetail>
+                <b202>01</b202>
+                <titleelement>
+                    <x409>01</x409>
+                    <b203>Integrated Treatment for Mood and Substance Use Disorders</b203>
+                </titleelement>
+            </titledetail>
+            <contributor>
+                <b034>01</b034>
+                <b035>B01</b035>
+                <b036>Joseph J. Westermeyer</b036>
+                <b037>Westermeyer, Joseph J.</b037>
+                <b039>Joseph J.</b039>
+                <b040>Westermeyer</b040>
+                <professionalaffiliation>
+                    <b045>Chief of Psychiatry</b045>
+                    <b046>Minneapolis VAMC</b046>
+                </professionalaffiliation>
+            </contributor>
+            <contributor>
+                <b034>02</b034>
+                <b035>B01</b035>
+                <b036>Roger D. Weiss</b036>
+                <b037>Weiss, Roger D.</b037>
+                <b039>Roger D.</b039>
+                <b040>Weiss</b040>
+            </contributor>
+            <contributor>
+                <b034>03</b034>
+                <b035>B01</b035>
+                <b036>Douglas M. Ziedonis</b036>
+                <b037>Ziedonis, Douglas M.</b037>
+                <b039>Douglas M.</b039>
+                <b040>Ziedonis</b040>
+            </contributor>
+            <b049>edited by Joseph J. Westermeyer, M.D., M.P.H., Ph.D., Roger D. Weiss, M.D., and Douglas M. Ziedonis, M.D., M.P.H.</b049>
+            <language>
+                <b253>01</b253>
+                <b252>eng</b252>
+            </language>
+            <extent>
+                <b218>07</b218>
+                <b219>216</b219>
+                <b220>03</b220>
+            </extent>
+            <subject>
+                <b067>93</b067>
+                <b069>JM</b069>
+            </subject>
+        </descriptivedetail>
+        <collateraldetail>
+            <textcontent>
+                <x426>03</x426>
+                <x427>00</x427>
+                <d104>&lt;P&gt;People with mood disorders often have simultaneous problems with addiction, and those with substance abuse problems are especially susceptible to mood disorder. The treatment of such patients can be particularly complicated, and many receive treatment for only one of their disorders. &lt;/P&gt;&lt;P&gt;In this book, fourteen clinicians discuss the extent of the problem, methods of assessment, typical courses, and treatments—including both psychotherapy and pharmacotherapy. They address the all-too-frequent necessity of proceeding with treatment before a clear diagnosis is known, and they claim that distinguishing between primary and secondary disorders is initially less critical than previously assumed. Contending that clinicians treating comorbid mood / substance problems must be both more flexible and more watchful than those treating either disorder alone, the authors also describe various models of care. Throughout the book, they provide differing points of view on such issues as the value of pharmacotherapy for those still abusing psychoactive substances. Written for those who treat addictions, including counselors, clergy, and employee assistance staff, as well as for traditional mental health professionals, &lt;I&gt;Integrated Treatment for Mood and Substance Use Disorders&lt;/I&gt; is an invaluable reference for any clinician who works with dually diagnosed clients.&lt;/P&gt; &lt;P&gt;Contents:&lt;BR&gt;Acknowledgments&lt;BR&gt;List of Contributors1 Addressing Co-occuring Mood and Substance Use Disorders&lt;BR&gt;Joseph J. Westermeyer2 Understanding the Problem of Co-occuring Mood and Substance Use Disorders&lt;BR&gt;Melissa P. DelBello and Stephen M. Strakowski3 The Assessment of Mood and Substance Use Disorders&lt;BR&gt;Shelly F. Greenfield4 Integrated Treatment Using a Recovery-Oriented Approach&lt;BR&gt;Dennis C. Daley, Ihsan M. Salloum, and Michael E. Thase5 Dual Recovery Therapy: Blending Psychotherapies for Depression and Addiction&lt;BR&gt;Douglas M. Ziedonis and Jonathan A. Krejci6 Pharmacotherapy for Co-occuring Mood and Substance Use Disorders&lt;BR&gt;Roger D. Weiss7 Evaluating and Managing Patients Who Are Not Responding to Treatment&lt;BR&gt;Jill M. Williams and Caroline Eick8 Addressing Tobacco Dependence in Integrated Treatment&lt;BR&gt;John Slade and Betty VreelandResources&lt;BR&gt;Index&lt;/P&gt;  &lt;P&gt;&lt;a href="https://clio.columbia.edu/catalog/14104665"&gt;Go to catalog record in CLIO.&lt;/a&gt;&lt;/P&gt;</d104>
+            </textcontent>
+        </collateraldetail>
+        <publishingdetail>
+            <imprint>
+                <b079>Johns Hopkins University Press</b079>
+            </imprint>
+            <publisher>
+                <b291>01</b291>
+                <b081>Johns Hopkins University Press</b081>
+                <website>
+                    <b367>01</b367>
+                    <b295>http://jhupbooks.press.jhu.edu</b295>
+                </website>
+            </publisher>
+        </publishingdetail>
+    </product>
+    
+    <product>
+        <a001>9780801881589</a001>
+        <a002>03</a002>
+        <productidentifier>
+            <b221>02</b221>
+            <b244>0801881587</b244>
+        </productidentifier>
+        <productidentifier>
+            <b221>15</b221>
+            <b244>9780801881589</b244>
+        </productidentifier>
+        <descriptivedetail>
+            <x314>00</x314>
+            <b012>EA</b012>
+            <b333>E107</b333>
+            <titledetail>
+                <b202>01</b202>
+                <titleelement>
+                    <x409>01</x409>
+                    <b203>Mind-Body Unity</b203>
+                    <b029>A New Vision for Mind-Body Science and Medicine</b029>
+                </titleelement>
+            </titledetail>
+            <contributor>
+                <b034>01</b034>
+                <b035>A01</b035>
+                <b036>Henry Dreher</b036>
+                <b037>Dreher, Henry</b037>
+                <b039>Henry</b039>
+                <b040>Dreher</b040>
+            </contributor>
+            <b049>Henry Dreher</b049>
+            <language>
+                <b253>01</b253>
+                <b252>eng</b252>
+            </language>
+            <extent>
+                <b218>07</b218>
+                <b219>360</b219>
+                <b220>03</b220>
+            </extent>
+            <subject>
+                <b067>93</b067>
+                <b069>MB</b069>
+            </subject>
+            <subject>
+                <b067>10</b067>
+                <b069>PSY000000</b069>
+            </subject>
+            <subject>
+                <b067>12</b067>
+                <b069>JM</b069>
+            </subject>
+            <subject>
+                <b067>93</b067>
+                <b069>JM</b069>
+            </subject>
+            <subject>
+                <b067>10</b067>
+                <b069>HEA000000</b069>
+            </subject>
+            <subject>
+                <b067>12</b067>
+                <b069>VFD</b069>
+            </subject>
+            <subject>
+                <b067>93</b067>
+                <b069>VFD</b069>
+            </subject>
+        </descriptivedetail>
+        <collateraldetail>
+            <textcontent>
+                <x426>03</x426>
+                <x427>00</x427>
+                <d104>&lt;P&gt;Over the past twenty years, an explosion of scientific studies have helped to explain why our state of mind may exert such a strong influence on the state of our health. In &lt;I&gt;Mind-Body Unity&lt;/I&gt; science writer Henry Dreher weighs the results of leading-edge mind-body research, and he concludes that mind and body are not merely connected, they are unified. Our minds play a role in health, Dreher argues, the way our eyes play a role in sight. &lt;/P&gt;&lt;P&gt;Integrating biological research on mind-body unity with psychosocial research on emotions in human health, Dreher surveys remarkable findings on the role of emotions, coping, and personality in coronary heart disease; on psychosocial factors in cancer progression and survival; and on the social dimensions of human health. He also describes mind-body approaches to the treatment of cancer, women's health conditions, somatization disorder, and in surgery. Finally, Dreher provides a critical overview of the social and political context of this research, from the presentations of leading popularizers such as Bernie Siegel and Deepak Chopra, to the experiences of practitioners and patients, to the resistance of mainstream medicine, to the many exciting possibilities suggested by a deeper understanding of how mind and body are inextricably bound.&lt;/P&gt; &lt;P&gt;Acknowledgments&lt;BR&gt;Introduction&lt;BR&gt;&lt;B&gt;Part I: The Scientific Basis of Mind-Body Medicine&lt;BR&gt;&lt;/B&gt;1. The Psychosomatic Network: Foundations of Mind-Body Medicine&lt;BR&gt;2. The Social Perspective in Mind-Body Studies&lt;BR&gt;3. The Mindful Heart: Psychosocial Factors in Heart Disease&lt;BR&gt;4. Cancer and the Mind: An Integrative Investigation&lt;BR&gt;&lt;B&gt;Part II: Clinical Applications of Mind-Body Medicine&lt;BR&gt;&lt;/B&gt;5. Behavioral Medicine's New Marketplace&lt;BR&gt;6. The Scientific and Moral Imperative of Psychosocial Interventions for Cancer&lt;BR&gt;7. Mind-Body Medicine for Women: Gender-Specific Treatments&lt;BR&gt;8. Somatization: Secrets Disclosed to the Body&lt;BR&gt;9. Mind-Body Interventions for Surgery: Evidence and Exigency&lt;BR&gt;Index&lt;/P&gt;  &lt;P&gt;&lt;a href="https://clio.columbia.edu/catalog/14128994"&gt;Go to catalog record in CLIO.&lt;/a&gt;&lt;/P&gt;</d104>
+            </textcontent>
+        </collateraldetail>
+        <publishingdetail>
+            <imprint>
+                <b079>Johns Hopkins University Press</b079>
+            </imprint>
+            <publisher>
+                <b291>01</b291>
+                <b081>Johns Hopkins University Press</b081>
+                <website>
+                    <b367>01</b367>
+                    <b295>http://jhupbooks.press.jhu.edu</b295>
+                </website>
+            </publisher>
+        </publishingdetail>
+    </product>
+    <product>
+        <a001>9780801881633</a001>
+        <a002>03</a002>
+        <productidentifier>
+            <b221>02</b221>
+            <b244>0801881633</b244>
+        </productidentifier>
+        <productidentifier>
+            <b221>15</b221>
+            <b244>9780801881633</b244>
+        </productidentifier>
+        <descriptivedetail>
+            <x314>00</x314>
+            <b012>EA</b012>
+            <b333>E107</b333>
+            <titledetail>
+                <b202>01</b202>
+                <titleelement>
+                    <x409>01</x409>
+                    <b203>Documentary History of the First Federal Congress of the United States of America, March 4, 1789-March 3, 1791</b203>
+                    <b029>Correspondence: First Session, September - November 1789</b029>
+                </titleelement>
+            </titledetail>
+            <contributor>
+                <b034>01</b034>
+                <b035>A01</b035>
+                <b036>Charlene Bangs Bickford</b036>
+                <b037>Bickford, Charlene Bangs</b037>
+                <b039>Charlene Bangs</b039>
+                <b040>Bickford</b040>
+            </contributor>
+            <b049>United States, First Congress, 1789-1791. Charlene Bangs Bickford, Kenneth R. Bowling, William Charles diGiacomantonio, and Helen E. Veit, eds.&lt;BR&gt;sponsored by the National Historical Publications and Records Commission and the George Washington University</b049>
+            <language>
+                <b253>01</b253>
+                <b252>eng</b252>
+            </language>
+            <extent>
+                <b218>07</b218>
+                <b219>696</b219>
+                <b220>03</b220>
+            </extent>
+        </descriptivedetail>
+        <collateraldetail>
+            <textcontent>
+                <x426>03</x426>
+                <x427>00</x427>
+                <d104>&lt;P&gt;&lt;a href="https://clio.columbia.edu/catalog/14063862"&gt;Go to catalog record in CLIO.&lt;/a&gt;&lt;/P&gt;</d104>
+            </textcontent>
+        </collateraldetail>
+        <publishingdetail>
+            <imprint>
+                <b079>Johns Hopkins University Press</b079>
+            </imprint>
+            <publisher>
+                <b291>01</b291>
+                <b081>Johns Hopkins University Press</b081>
+                <website>
+                    <b367>01</b367>
+                    <b295>http://jhupbooks.press.jhu.edu</b295>
+                </website>
+            </publisher>
+        </publishingdetail>
+    </product>
+    <product>
+        <a001>9780801888748</a001>
+        <a002>04</a002>
+        <productidentifier>
+            <b221>02</b221>
+            <b244>0801888743</b244>
+        </productidentifier>
+        <productidentifier>
+            <b221>15</b221>
+            <b244>9780801888748</b244>
+        </productidentifier>
+        <descriptivedetail>
+            <x314>00</x314>
+            <b012>EA</b012>
+            <b333>E107</b333>
+            <titledetail>
+                <b202>01</b202>
+                <titleelement>
+                    <x409>01</x409>
+                    <b203>How New York Became American, 1890–1924</b203>
+                </titleelement>
+            </titledetail>
+            <contributor>
+                <b034>01</b034>
+                <b035>A01</b035>
+                <b036>Art M. Blake</b036>
+                <b037>Blake, Art M.</b037>
+                <b039>Art M.</b039>
+                <b040>Blake</b040>
+                <professionalaffiliation>
+                    <b045>Associate Professor</b045>
+                    <b046>Ryerson University</b046>
+                </professionalaffiliation>
+            </contributor>
+            <b049>Art M. Blake</b049>
+            <language>
+                <b253>01</b253>
+                <b252>eng</b252>
+            </language>
+            <extent>
+                <b218>07</b218>
+                <b219>256</b219>
+                <b220>03</b220>
+            </extent>
+            <subject>
+                <b067>93</b067>
+                <b069>NHK</b069>
+            </subject>
+            <subject>
+                <b067>10</b067>
+                <b069>SOC026030</b069>
+            </subject>
+            <subject>
+                <b067>93</b067>
+                <b069>JBSD</b069>
+            </subject>
+            <subject>
+                <b067>10</b067>
+                <b069>ARC010000</b069>
+            </subject>
+            <subject>
+                <b067>93</b067>
+                <b069>AMVD</b069>
+            </subject>
+            <subject>
+                <b067>11</b067>
+                <b069>4.0.1.2.2.4.0 </b069>
+            </subject>
+        </descriptivedetail>
+        <collateraldetail>
+            <textcontent>
+                <x426>03</x426>
+                <x427>00</x427>
+                <d104>&lt;P&gt;Originally published in 2006. For many Americans at the turn of the twentieth century and into the 1920s, the city of New York conjured dark images of crime, poverty, and the desperation of crowded immigrants. In &lt;I&gt;How New York Became American, 1890–1924&lt;/I&gt;, Art M. Blake explores how advertising professionals and savvy business leaders "reinvented" the city, creating a brand image of New York that capitalized on the trend toward pleasure travel. Blake examines the ways in which these early boosters built on the attention drawn to the city and its exotic populations to craft an image of New York City as America writ urban—a place where the arts flourished, diverse peoples lived together boisterously but peacefully, and where one could enjoy a visit. &lt;/P&gt;&lt;P&gt;Drawing on a wide range of textual and visual primary sources, Blake guides the reader through New York's many civic identities, from the first generation of New York skyscrapers and their role in "Americanizing" the city to the promotion of Midtown as the city's definitive public face. His study ranges from the late 1890s into the early twentieth century, when the United States suddenly emerged as an imperial power, and the nation's industry, commerce, and culture stood poised to challenge Europe's global dominance. New York, the nation's largest city, became the de facto capital of American culture. Social reformers and tourism boosters, keen to see America's cities rival those of France or Britain, jockeyed for financial and popular support. &lt;/P&gt;&lt;P&gt;Blake weaves a compelling story of a city's struggle for metropolitan and national status and its place in the national imagination.&lt;/P&gt; &lt;P&gt;List of Illustrations&lt;BR&gt;Acknowledgments&lt;BR&gt;Introduction&lt;BR&gt;1. Reforming New York's Image in the 1890s&lt;BR&gt;2. Tourism and New York's Image in the 1890s&lt;BR&gt;3. Architecture, Americanism, and a "New" New York, 1900–1919&lt;BR&gt;4. New York Is Not America: Immigrants and Tourists in New York after World War I&lt;BR&gt;5. Brand New York: Making Midtown in the 1920s&lt;BR&gt;Conclusion&lt;BR&gt;Notes&lt;BR&gt;Essay on Primary Sources&lt;BR&gt;Index&lt;/P&gt;  &lt;P&gt;&lt;a href="https://clio.columbia.edu/catalog/14097668"&gt;Go to catalog record in CLIO.&lt;/a&gt;&lt;/P&gt;</d104>
+            </textcontent>
+        </collateraldetail>
+        <publishingdetail>
+            <imprint>
+                <b079>Johns Hopkins University Press</b079>
+            </imprint>
+            <publisher>
+                <b291>01</b291>
+                <b081>Johns Hopkins University Press</b081>
+                <website>
+                    <b367>01</b367>
+                    <b295>http://jhupbooks.press.jhu.edu</b295>
+                </website>
+            </publisher>
+        </publishingdetail>
+    </product>
+    
+    <product>
+        <a001>9780801889028</a001>
+        <a002>04</a002>
+        <productidentifier>
+            <b221>15</b221>
+            <b244>9780801889028</b244>
+        </productidentifier>
+        <descriptivedetail>
+            <x314>00</x314>
+            <b012>EA</b012>
+            <b333>E107</b333>
+            <titledetail>
+                <b202>01</b202>
+                <titleelement>
+                    <x409>01</x409>
+                    <b203>Governing Health</b203>
+                    <b029>The Politics of Health Policy</b029>
+                </titleelement>
+            </titledetail>
+            <contributor>
+                <b034>01</b034>
+                <b035>A01</b035>
+                <b036>Carol S. Weissert</b036>
+                <b037>Weissert, Carol S.</b037>
+                <b039>Carol S.</b039>
+                <b040>Weissert</b040>
+                <professionalaffiliation>
+                    <b045>Professor</b045>
+                    <b046>Florida State University</b046>
+                </professionalaffiliation>
+            </contributor>
+            <contributor>
+                <b034>02</b034>
+                <b035>A01</b035>
+                <b036>William G. Weissert</b036>
+                <b037>Weissert, William G.</b037>
+                <b039>William G.</b039>
+                <b040>Weissert</b040>
+            </contributor>
+            <b049>Carol S. Weissert and William G. Weissert</b049>
+            <language>
+                <b253>01</b253>
+                <b252>eng</b252>
+            </language>
+            <extent>
+                <b218>07</b218>
+                <b219>464</b219>
+                <b220>03</b220>
+            </extent>
+            <subject>
+                <b067>10</b067>
+                <b069>POL044000</b069>
+            </subject>
+        </descriptivedetail>
+        <collateraldetail>
+            <textcontent>
+                <x426>03</x426>
+                <x427>00</x427>
+                <d104>&lt;P&gt; &lt;I&gt;Governing Health&lt;/I&gt; examines health care policy making from a long-term, political perspective, describing how Congress, the president, special interest groups, bureaucracy, and state governments help define health policy problems and find politically feasible solutions. The third edition of this pathbreaking book is updated to cover recent legislative efforts, including the Medicare prescription drug benefit.&lt;/P&gt;&lt;P&gt;Praise for previous editions of  &lt;I&gt;Governing Health&lt;/I&gt; &lt;/P&gt;  &lt;P&gt;&lt;a href="https://clio.columbia.edu/catalog/13883518"&gt;Go to catalog record in CLIO.&lt;/a&gt;&lt;/P&gt;</d104>
+            </textcontent>
+        </collateraldetail>
+        <publishingdetail>
+            <imprint>
+                <b079>Johns Hopkins University Press</b079>
+            </imprint>
+            <publisher>
+                <b291>01</b291>
+                <b081>Johns Hopkins University Press</b081>
+                <website>
+                    <b367>01</b367>
+                    <b295>http://jhupbooks.press.jhu.edu</b295>
+                </website>
+            </publisher>
+        </publishingdetail>
+    </product>
+    
+    <product>
+        <a001>9780801895944</a001>
+        <a002>04</a002>
+        <productidentifier>
+            <b221>02</b221>
+            <b244>0801895944</b244>
+        </productidentifier>
+        <productidentifier>
+            <b221>15</b221>
+            <b244>9780801895944</b244>
+        </productidentifier>
+        <descriptivedetail>
+            <x314>00</x314>
+            <b012>EA</b012>
+            <b333>E107</b333>
+            <titledetail>
+                <b202>01</b202>
+                <titleelement>
+                    <x409>01</x409>
+                    <b203>Handbook for Health Care Ethics Committees</b203>
+                </titleelement>
+            </titledetail>
+            <contributor>
+                <b034>01</b034>
+                <b035>A01</b035>
+                <b036>Linda Farber Post</b036>
+                <b037>Post, Linda Farber</b037>
+                <b039>Linda Farber</b039>
+                <b040>Post</b040>
+                <professionalaffiliation>
+                    <b045>Director, Division of Bioethics</b045>
+                    <b046>Montefiore Medical Center</b046>
+                </professionalaffiliation>
+            </contributor>
+            <contributor>
+                <b034>02</b034>
+                <b035>A01</b035>
+                <b036>Jeffrey Blustein</b036>
+                <b037>Blustein, Jeffrey</b037>
+                <b039>Jeffrey</b039>
+                <b040>Blustein</b040>
+            </contributor>
+            <contributor>
+                <b034>03</b034>
+                <b035>A01</b035>
+                <b036>Nancy Neveloff Dubler</b036>
+                <b037>Dubler, Nancy Neveloff</b037>
+                <b039>Nancy Neveloff</b039>
+                <b040>Dubler</b040>
+            </contributor>
+            <b049>Linda Farber Post, Jeffrey Blustein, and Nancy Neveloff Dubler</b049>
+            <language>
+                <b253>01</b253>
+                <b252>eng</b252>
+            </language>
+            <extent>
+                <b218>07</b218>
+                <b219>352</b219>
+                <b220>03</b220>
+            </extent>
+        </descriptivedetail>
+        <collateraldetail>
+            <textcontent>
+                <x426>03</x426>
+                <x427>00</x427>
+                <d104>&lt;P&gt;Hospitals, nursing homes, and home care agencies seeking approval by the Joint Commission on the Accreditation of Healthcare Organizations (JCAHO) must have a standing mechanism to address ethical issues. Most organizations have chosen to satisfy this with an interdisciplinary ethics committee. The best of these committees are knowledgeable, creative, and effective resources in their institutions. Many are well meaning but lack the information, experience, and skills to negotiate adequately the complex ethical issues that arise in clinical and organizational settings. &lt;/P&gt;&lt;P&gt; &lt;I&gt;Handbook for Health Care Ethics Committees&lt;/I&gt; is the first resource to address the myriad responsibilities that ethics committees have, including education, case consultation, and policy development. Through case studies, the authors explore issues such as informed consent and refusal, decision making and decisional capacity, truth telling, decision-making concerns of minors, end-of-life issues, palliative care, justice in and access to health care services, and organizational ethics. &lt;/P&gt;&lt;P&gt;Featuring an eight-chapter curriculum review and discussion of the ethical foundations of health care practice, sample policies and procedures, draft guidelines, and key legal cases, this handbook will be essential reading for every health care ethics committee member.&lt;/P&gt;  &lt;P&gt;&lt;a href="https://clio.columbia.edu/catalog/14091757"&gt;Go to catalog record in CLIO.&lt;/a&gt;&lt;/P&gt;</d104>
+            </textcontent>
+        </collateraldetail>
+        <publishingdetail>
+            <imprint>
+                <b079>Johns Hopkins University Press</b079>
+            </imprint>
+            <publisher>
+                <b291>01</b291>
+                <b081>Johns Hopkins University Press</b081>
+                <website>
+                    <b367>01</b367>
+                    <b295>http://jhupbooks.press.jhu.edu</b295>
+                </website>
+            </publisher>
+        </publishingdetail>
+    </product>
+    
+</ONIXmessage>

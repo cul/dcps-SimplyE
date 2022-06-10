@@ -1,7 +1,9 @@
 # Generate OPDS v2.0 JSON from API output
 import json
 import os
+import re
 import requests
+import sys
 from datetime import datetime
 from configparser import ConfigParser
 from dcps.pickle_utils import unpickle_it
@@ -14,8 +16,8 @@ config = ConfigParser()
 config.read(config_path)
 
 
-API_ENDPOINT = 'https://spdi.public.springernature.app/bookmeta/v1/'
-API_KEY = config["API"]["springerKey"]
+API_ENDPOINT = 'https://api.springernature.com/bookmeta/v1/'
+API_KEY = config["SPRINGER"]["apiKey"]
 ENTITLEMENT_ID = config["API"]["entitlementID"]
 PER_PAGE = 100
 
@@ -33,8 +35,13 @@ NOW = datetime.utcnow().strftime(
 
 
 def main():
-
-    feed_stem = "springer_test_feed"
+    isbn = sys.argv[1]
+    unpunctuated = re.compile('^\d{13}$', re.IGNORECASE)
+    if unpunctuated.match(isbn):
+        # 9783030561680 -> 978-3-030-56168-0
+        segments = [isbn[0:3], isbn[3], isbn[4:7], isbn[7:12], isbn[12]]
+        isbn = '-'.join(segments)
+    feed_stem = "springer_test_isbn_feed"
     collection_title = "springer"
     out_file = feed_stem + ".json"
     title = "Springer Test Feed"
@@ -45,14 +52,12 @@ def main():
     subject_path = os.path.join(
         MY_PATH, 'output_test/springer/springer_subjects.pickle')
 
-    date_param = 'onlinedatefrom:2021-01-01%20onlinedateto:2021-08-31'
-
-    springer_build_datastore(feed_stem, collection_title, subject_path,
+    datastore_path = springer_build_datastore(feed_stem, collection_title, subject_path,
                              output_dir,
-                             query=date_param)
+                             [isbn])
 
-    springer_build_opds('output_test/springer/springer_test_feed_datastore.json',
-                        'Springer Test Feed', url, 'output_test/springer/springer_test_feed5_OPDS.json')
+    springer_build_opds(datastore_path,
+                        'Springer Test Feed', url, 'output_test/springer/springer_test_feed_isbn_OPDS.json')
 
 def springer_build_opds(data_store_path, feed_title, url, output_path):
     """Given stored JSON API data, compose and save OPDS v2 feed.
@@ -83,11 +88,10 @@ def springer_build_opds(data_store_path, feed_title, url, output_path):
     with open(output_path, "w") as f:
         json.dump(feed_dict, f, indent=2)
 
-
 def springer_build_datastore(feed_stem, collection_title,
                              subject_path,
                              output_dir,
-                             query='onlinedatefrom:2001-01-01%20onlinedateto:2022-07-31'):
+                             isbns):
     """Capture and store API data, merging with CUL-specific metadata.
 
     Args:
@@ -108,8 +112,11 @@ def springer_build_datastore(feed_stem, collection_title,
 
     subject_data = unpickle_it(subject_path)
 
-    x = get_springer_batch(
-        q=query)
+    x =  [get_springer_by_isbn(isbn) for isbn in isbns]
+
+    with open(os.path.join(output_dir, feed_stem + '_cache.json'), "w") as f:
+        json.dump(x, f, indent=2)
+
 
     print("Retrieved " + str(len(x)) + " books.")
     for r in x:
@@ -119,24 +126,23 @@ def springer_build_datastore(feed_stem, collection_title,
                              'collection_name':
                              collection_title,
                              'retrieved': NOW}
-        doi = r['doi']
+
         try:
-            r['subjects'] = subject_data[doi]
+            r['subjects'] = subject_data[r['doi']]
         except KeyError:
             r['subjects'] = []
             print("Warning: no subjects found for " + str(r['identifier']))
-
     if os.path.exists(data_store):
-        x = springer_merge_records(x, data_store)
+        # m = springer_merge_records(x, data_store)
         print("Saving " + str(len(x)) + " records to " + str(data_store) + "...")
         with open(data_store, "w") as f:
             json.dump(x, f)
-        return "Update of " + str(data_store) + " complete."
+        print("Update of " + str(data_store) + " complete.")
     else:
         print("Saving to " + str(data_store) + "...")
         with open(data_store, "w") as f:
             json.dump(x, f)
-
+    return data_store
 
 def springer_merge_records(data, filepath):
     """insert new records, and replace duplicate ones with new ones. Treats any duplicate record in <data> as newer (does not compare dates)
@@ -362,9 +368,9 @@ def get_springer_by_isbn(isbn, apikey=API_KEY, format='json'):
     Returns:
         dict: Representation of API record
     """
-    query = format + '?q=isbn:' + isbn + '&api_key=' + \
-        apikey + '/columbia-uni-api&entitlement=columbia-uni-api'
+    query = format + '?q=isbn:' + isbn + '&api_key=' + apikey
     try:
+        print(API_ENDPOINT + query)
         response = requests.get(API_ENDPOINT + query)
         response.raise_for_status()
     except Exception as err:
@@ -373,7 +379,13 @@ def get_springer_by_isbn(isbn, apikey=API_KEY, format='json'):
         # If the response was successful, no exception will be raised
         x = json.loads(response.content)
         if x['result'][0]['total'] == '1':
-            return x
+            isbn_result = x['records'][0]
+            isbn_result['subjects'] = []
+            if 'facets' in x:
+                for facet in x['facets']:
+                    if facet['name'] == 'subject':
+                        isbn_result['subjects'] = [value['value'] for value in facet['values']]
+            return isbn_result
         print("Number of responses != 1: skipping!")  # debug
 
 

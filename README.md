@@ -34,6 +34,27 @@ Extract data from OAPEN API, similar to ia_get_collections above. There is only 
 
 Build paginated OPDS XML feed for OAPEN collection comparable to ia_build_feeds above. 
 
+## Springer Scripts
+
+### config.ini (local requirement)
+```
+[API]
+springerKey = $SPRINGER_API_KEY
+entitlementID = $SPRINGER_ENT_ID
+
+[IDM]
+instID = $INSTITUTION_URN
+```
+### springer/subjects/csv_data.py
+```
+[CSV]
+springer_subjects = $CSV_PATH
+```
+CSV should be DOI followed by subjects, with a header row expected 
+
+### springer_extract_data.py
+Builds an OPDS feed from Springer API data and archived subject data
+
 ## General utilites
 
 ### opds_validate.py
@@ -48,3 +69,6 @@ General utilities imported and used across scripts.
 
 Abstraction of Google Sheets API, for reading and writing data to/from sheets. [See here for documentation.](https://github.com/dwhodges2/sheetFeeder)
 
+### validators/opds2.py
+
+Validate OPDS2 JSON with Lyrasis parser
